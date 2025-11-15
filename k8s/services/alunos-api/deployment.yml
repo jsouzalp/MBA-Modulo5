@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alunos-api
+  namespace: plataforma-educacional
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alunos-api
+  template:
+    metadata:
+      labels:
+        app: alunos-api
+    spec:
+      containers:
+        - name: alunos-api
+          image: educa/alunos-api:latest
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef: { name: alunos-api-config }
+            - secretRef:    { name: alunos-api-secret }
+          livenessProbe:
+            httpGet: { path: /health, port: 8082 }
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: { path: /health, port: 8082 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "100m", memory: "128Mi" }
+            limits:   { cpu: "300m", memory: "256Mi" }

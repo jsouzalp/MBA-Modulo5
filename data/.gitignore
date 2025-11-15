@@ -1,0 +1,18 @@
+# Arquivos de banco SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# Logs de banco
+*.log
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Manter o diretório no git
+!.gitignore 

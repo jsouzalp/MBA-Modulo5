@@ -1,0 +1,15 @@
+services: {}
+
+# docker-compose.full.yml
+# Este arquivo serve apenas como referência de composição completa
+# do ambiente Docker (Infra + Services). O start-all.ps1 executa esta sequência.
+# Para iniciar tudo:
+# docker compose -f ./docker/infra/docker-compose.sqlserver.yml `
+#                -f ./docker/infra/docker-compose.rabbitmq.yml `
+#                -f ./docker/infra/docker-compose.redis.yml `
+#                -f ./docker/services/docker-compose.pagamentos-api.yml `
+#                -f ./docker/services/docker-compose.conteudo-api.yml `
+#                -f ./docker/services/docker-compose.alunos-api.yml `
+#                -f ./docker/services/docker-compose.auth-api.yml `
+#                -f ./docker/services/docker-compose.bff-api.yml `
+#                -f ./docker/services/docker-compose.frontend.yml up -d

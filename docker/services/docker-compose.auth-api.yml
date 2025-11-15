@@ -1,0 +1,42 @@
+services:
+  auth-api:
+    image: educa/auth-api:latest
+    container_name: plataforma-auth-api
+    build:
+      context: ../../src/backend
+      dockerfile: auth-api/Dockerfile
+    ports:
+      - "5001:5001"
+      - "7001:7001"
+    expose:
+      - 5001
+      - 7001
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:5001;http://+:7001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=PlataformaEducacional123!
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AuthDB;User Id=sa;Password=PlataformaEducacional123!;TrustServerCertificate=True;
+      - JwtSettings__SecretKey=PlataformaEducacional123!SuperSecretKey2024@#$
+      - JwtSettings__Issuer=PlataformaEducacional
+      - JwtSettings__Audience=PlataformaEducacional
+      - JwtSettings__ExpiryMinutes=15
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=admin
+      - RabbitMQ__Password=admin123
+    networks:
+      - plataforma-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+# volumes:
+#   pagamentos-api-volume: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true

@@ -1,0 +1,30 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: plataforma-sqlserver
+    ports:
+      - "1433:1433"
+    expose:
+      - 1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: PlataformaEducacional123!
+      MSSQL_PID: Express
+      SQLSERVER_PORT: 1433
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - plataforma-network
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P PlataformaEducacional123! -C -Q "SELECT 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  sqlserver_data: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true

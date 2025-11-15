@@ -1,0 +1,10 @@
+.dialog-body { display: block; min-width: 360px; }
+.form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 20px; }
+.col-12 { grid-column: span 12; }
+.col-8 { grid-column: span 8; }
+.col-4 { grid-column: span 4; }
+.created-list { margin-top: 6px; color: #666; }
+
+mat-form-field { width: 100%; }
+
+

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-api-config
+  namespace: plataforma-educacional
+data:
+  ASPNETCORE_ENVIRONMENT: "Kubernetes"
+  JWT__Issuer: "https://auth.local"
+  JWT__Audience: "https://auth.local/users"

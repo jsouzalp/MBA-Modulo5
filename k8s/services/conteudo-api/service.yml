@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: conteudo-api
+  namespace: plataforma-educacional
+spec:
+  selector:
+    app: conteudo-api
+  ports:
+    - port: 8081
+      targetPort: 8081

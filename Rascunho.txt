@@ -1,0 +1,173 @@
+SALTO NO SEQUENCIAL DO DOCUMENTO FISCAL POR PROBLEMAS SISTÊMICOS
+
+Beira#2110443
+Liberdade@!112025_a
+
+C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api
+C:\Projetos\Proth\MBA\Project5\src\backend\auth-api
+C:\Projetos\Proth\MBA\Project5\src\backend\bff-api
+C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api
+C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api
+C:\Projetos\Proth\MBA\Project5\src\frontend (que é um projeto angular)
+
+
+
+Boa noite Eduardo e Thiago, 
+Queria externar algumas coisas que me faz discordar da nota aplicada ao nosso grupo (Jairo, Jason, Karina, Hugo e Marco).
+Na especificação do módulo 4, embora fale de front-end, na minha opinião, não ficou claro que era um pré-req. No meu entendimento, o front-end feito foi mais um helper para facilitar visualizar algumas coisas, mas não nos preocupamos com isso porque nosso foco era o backend.
+Algumas ponderações poderiam ser feitas na primeira avaliação (foram 4 ou 5 projetos da classe) e eu não acho legal penalizar a nota por causa de observações apresentadas na segunda entrega e na grande parte coisas de front. Concordo que podem ter ocorrido bugs na parte de front, seja por orquestração das coisas ou por erro mesmo na API, mas insisto em dizer que o front, na minha opinião, não deveria ser motivo de penalização na nota
+Alguns exemplos que me chamou muito a atenção:
+1) Foi pedido que usássemos FluentValidation, me recordo de ouvir em algum lugar (não me recordo se foi em uma conversa com Eduardo ou se foi no curso), mas a ideia seria deixar a Domain mais "leve" e "independente" possível e se fosse possível não usar bibliotecas externas, seria o ideal, tanto que nos cursos, tinha muito o uso de "ValidarInegridadeXxxx()". Quando fizemos uso disso a ideia era darmos uma validação mais genérica e reutilizável. 
+2) Ainda sobre a validação única, nossa ideia foi validar o objeto num todo. É muito chato fazer uma requisição e receber 1 erro de validação e depois de corrigir, receber outro erro de validação. A ideia é validar tudo e devolver tudo de uma só vez e quem consumir a API que resolva também de uma vez. Ganhamos os dois lados por não precisar fazer 10 requisições porque as 9 anteriores tinham erro de validação
+3) Um ponto que incomodou a mim exclusivamente, foi sobre o feedback de MatriculaCurso. Decidimos esse nome porque deixamos um nome claro para a finalidade. O nome Matrícula remete a "matricula de que?", seria de curso? seria de atividade esportiva, seria matrícula da própria instituição (posso ser matriculado na faculdade mas não necessariamente matriculado em um curso). Não sei se fui bem claro neste ponto, mas o nome MatriculaCurso nos faz mais sentido para o nosso modelo de negócio.
+
+Para dizer que não concordo com nada, eu concordo sim, depois de ler melhor o feedback percebemos que algumas coisas poderiam ficar mais claras, como por exemplo as críticas de "RequisitarCertificadoConclusao" e "VerificarSeCertificadoExiste". Concordo 100% que ela remete que será retornado algo e ela apenas valida e levanta exception. No nosso caso poderia ter sido melhor declarada a finalidade do método (falha nossa)
+Outro exemplo foi o "CalcularMediaFinalCurso". Hoje ele só retorna 10 porque não definimos uma regra específica (vc bem que poderia usar essa nossa regra!!! heheheheheh). Na especificação não faz nota de uma regra para dar nota ao curso realizado e para não deixar um "buraco", lançamos um 10 para todos apenas para ter um "fluxo" mais integro
+Sobre a questão do histórico der um ID mesmo sendo um VO. Por ser uma lista de eventos, não conseguimos fazer um mapeamento no EF sem ter um ID que representasse uma PK. Concordo que eu desenvolvi errado nesse ponto e agradeço pelo feedback porque me deu uma clareza melhor
+
+
+C:\Projetos\Proth\MBA\Project5\
+│
+├── docker/
+│	├── infra/
+│	│   ├── docker-compose.sqlserver.yml
+│	│   ├── docker-compose.rabbitmq.yml
+│	│   ├── docker-compose.redis.yml
+│	│
+│	├── services/
+│	│   ├── docker-compose.auth-api.yml
+│	│   ├── docker-compose.alunos-api.yml
+│	│   ├── docker-compose.conteudo-api.yml
+│	│   ├── docker-compose.pagamentos-api.yml
+│	│   ├── docker-compose.bff-api.yml
+│	│   ├── docker-compose.frontend.yml
+│	│
+│	├── docker-compose.full.yml
+│	└── env/
+│		├── infra.sqlserver.env
+│		├── infra.rabbitmq.env
+│		├── infra.redis.env
+│		├── auth-api.env
+│		├── conteudo-api.env
+│		├── alunos-api.env
+│		├── pagamentos-api.env
+│		├── bff-api.env
+│		└── frontend.env
+│
+├── src\
+│   ├── backend\
+│   │   ├── alunos-api\
+│   │   ├── auth-api\
+│   │   ├── bff-api\
+│   │   ├── conteudo-api\
+│   │   └── pagamentos-api\
+│   │
+│   └── frontend\
+│       └── (projeto Angular)
+│
+└── start-all.ps1
+
+
+k8s/
+├── infra/
+│   ├── sqlserver/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   └── secret.yml
+│   ├── rabbitmq/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   └── configmap.yml
+│   └── redis/
+│       ├── deployment.yml
+│       ├── service.yml
+│
+├── services/
+│   ├── auth-api/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   ├── configmap.yml
+│   │   └── secret.yml
+│   ├── conteudo-api/
+│   ├── alunos-api/
+│   ├── pagamentos-api/
+│   ├── bff-api/
+│   └── frontend/
+│
+└── namespace.yml
+
+
+
+
+Namespace: plataforma-educacional
+Prefixo de imagens: educa/<serviço>:latest
+Padrão de portas (container): auth 8080, conteudo 8081, alunos 8082, pagamentos 8083, bff 8084, frontend 80
+Probes: GET /health (APIs e BFF); frontend checa /
+Recursos (mínimos): requests/limits leves para passar no cluster local
+Variáveis: tudo que é repetitivo isolado em ConfigMap e Secret
+
+
+
+
+
+docker compose -f .\docker\infra\docker-compose.sqlserver.yml config
+docker compose -f .\docker\infra\docker-compose.rabbitmq.yml config
+docker compose -f .\docker\infra\docker-compose.redis.yml config
+
+docker compose -f .\docker\infra\docker-compose.sqlserver.yml up -d
+docker compose -f .\docker\infra\docker-compose.rabbitmq.yml up -d
+docker compose -f .\docker\infra\docker-compose.redis.yml up -d
+
+
+docker volume prune -f
+docker network rm plataforma-network-rabbitmq | Out-Null
+docker network rm plataforma-network-sqlserver | Out-Null
+
+
+
+kubectl apply -f k8s/namespace.yml
+
+kubectl apply -f k8s/infra/sqlserver/secret.yml
+kubectl apply -f k8s/infra/sqlserver/deployment.yml
+kubectl apply -f k8s/infra/sqlserver/service.yml
+
+kubectl apply -f k8s/infra/rabbitmq/configmap.yml
+kubectl apply -f k8s/infra/rabbitmq/deployment.yml
+kubectl apply -f k8s/infra/rabbitmq/service.yml
+
+kubectl apply -f k8s/infra/redis/deployment.yml
+kubectl apply -f k8s/infra/redis/service.yml
+
+kubectl apply -f k8s/services/auth-api/ -f k8s/services/conteudo-api/ \
+  -f k8s/services/alunos-api/ -f k8s/services/pagamentos-api/ \
+  -f k8s/services/bff-api/ -f k8s/services/frontend/
+
+
+
+
+Configuração do minikube
+
+== Instalação
+choco install minikube -y
+choco install kubernetes-cli -y
+
+== Iniciar o cluster
+minikube start --driver=docker
+
+
+== verificar nodes
+kubectl get nodes
+
+== Criar namespace
+kubectl apply -f k8s/
+
+== Ver os PODs
+kubectl get all -n plataforma-educacional
+
+== Acessar o front
+minikube service frontend -n plataforma-educacional
+
+
+
+
+

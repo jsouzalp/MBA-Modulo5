@@ -1,0 +1,61 @@
+<div class="certificado-container" *ngIf="certificado">
+  <div class="header-actions">
+    <button mat-button (click)="voltar()" class="voltar-btn">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+
+  <div class="certificado-content">
+    <mat-card class="certificado-card">
+      <mat-card-header>
+        <mat-card-title class="certificado-title">
+          <mat-icon class="certificado-icon">school</mat-icon>
+          Certificado de Conclusão
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="certificado-info">
+          <div class="info-row">
+            <span class="label">Curso:</span>
+            <span class="value">{{ certificado.nomeCurso }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">Data de Emissão:</span>
+            <span class="value">{{ certificado.dataEmissao | date:'longDate' }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">Código de Verificação:</span>
+            <span class="value code">{{ certificado.codigo }}</span>
+          </div>
+        </div>
+
+        <div class="qr-code-section">
+          <div class="qr-code-container">
+            <div class="qr-code-image">
+              <img src="assets/images/qrcode.png" alt="QR Code do Certificado" class="qr-code-img">
+              <p class="qr-data">{{ qrCodeData }}</p>
+            </div>
+          </div>
+          <p class="qr-description">
+            Escaneie este código para verificar a autenticidade do certificado
+          </p>
+        </div>
+
+        <div class="certificado-footer">
+          <p class="footer-text">
+            Este certificado confirma a conclusão bem-sucedida do curso e pode ser utilizado 
+            para fins profissionais e acadêmicos.
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="!certificado" class="loading-container">
+  <p>Carregando certificado...</p>
+</div>

@@ -1,0 +1,40 @@
+services:
+  bff-api:
+    image: educa/bff-api:latest
+    container_name: plataforma-bff-api
+    build:
+      context: ../../src/backend
+      dockerfile: bff-api/Dockerfile
+    ports:
+      - "5000:5000"
+      - "7000:7000"
+    expose:
+      - 5000
+      - 7000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:5000;http://+:7000
+      - JwtSettings__SecretKey=PlataformaEducacional123!SuperSecretKey2024@#$
+      - JwtSettings__Issuer=PlataformaEducacional
+      - JwtSettings__Audience=PlataformaEducacional
+      - RedisSettings__ConnectionString=redis:6379
+      - ApiSettings__AuthApiUrl=http://auth-api:5001
+      - ApiSettings__ConteudoApiUrl=http://conteudo-api:5002
+      - ApiSettings__AlunosApiUrl=http://alunos-api:5003
+      - ApiSettings__PagamentosApiUrl=http://pagamentos-api:5004
+    networks:
+      - plataforma-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8084/health']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+# volumes:
+#   pagamentos-api-volume: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true

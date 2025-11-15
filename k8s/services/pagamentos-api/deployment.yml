@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pagamentos-api
+  namespace: plataforma-educacional
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pagamentos-api
+  template:
+    metadata:
+      labels:
+        app: pagamentos-api
+    spec:
+      containers:
+        - name: pagamentos-api
+          image: educa/pagamentos-api:latest
+          ports:
+            - containerPort: 8083
+          envFrom:
+            - configMapRef: { name: pagamentos-api-config }
+            - secretRef:    { name: pagamentos-api-secret }
+          livenessProbe:
+            httpGet: { path: /health, port: 8083 }
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: { path: /health, port: 8083 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "100m", memory: "128Mi" }
+            limits:   { cpu: "300m", memory: "256Mi" }

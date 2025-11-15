@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bff-api-config
+  namespace: plataforma-educacional
+data:
+  ASPNETCORE_ENVIRONMENT: "Kubernetes"
+  ApiSettings__AuthApiUrl:      "http://auth-api:8080"
+  ApiSettings__ConteudoApiUrl:  "http://conteudo-api:8081"
+  ApiSettings__AlunosApiUrl:    "http://alunos-api:8082"
+  ApiSettings__PagamentosApiUrl:"http://pagamentos-api:8083"
