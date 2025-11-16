@@ -28,7 +28,7 @@ public class ConteudoDbContext(DbContextOptions<ConteudoDbContext> options) : Db
         {
             if (property.GetMaxLength() == null)
             {
-                property.SetMaxLength(0);
+                property.SetMaxLength(1024);
             }
         }
 

@@ -97,7 +97,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alunos.IntegrationTests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".helpers", ".helpers", "{5811FB03-71EA-4865-9A11-B2E566E34B52}"
 	ProjectSection(SolutionItems) = preProject
-		ClearBinObj.cmd = ClearBinObj.cmd
+		.helpers\ClearBinObj.cmd = .helpers\ClearBinObj.cmd
+		.helpers\Migration.cmd = .helpers\Migration.cmd
 		tests\TestsCoverage.cmd = tests\TestsCoverage.cmd
 	EndProjectSection
 EndProject

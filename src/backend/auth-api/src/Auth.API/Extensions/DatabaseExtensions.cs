@@ -15,19 +15,28 @@ public static class DatabaseExtensions
     {
         var databaseSettings = configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>() ?? new DatabaseSettings();
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        var isDevelopment = environment.IsDevelopment() || environment.IsEnvironment("Docker");
+        var isDevelopment = environment.IsDevelopment();
 
         if (isDevelopment)
         {
             services.AddDbContext<AuthDbContext>(options =>
-                options.UseSqlite(connectionString ?? databaseSettings.DevelopmentConnection,
-                    b => b.MigrationsAssembly("Auth.Infrastructure")));
+            {
+                options.UseSqlServer(connectionString ?? databaseSettings.DevelopmentConnection, b => b.MigrationsAssembly("Auth.Infrastructure"));
+            });
+        }
+        else if (environment.IsEnvironment("Docker"))
+        {
+            services.AddDbContext<AuthDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString ?? databaseSettings.ProductionConnection, b => b.MigrationsAssembly("Auth.Infrastructure"));
+            });
         }
         else
         {
             services.AddDbContext<AuthDbContext>(options =>
-                options.UseSqlServer(connectionString ?? databaseSettings.ProductionConnection,
-                    b => b.MigrationsAssembly("Auth.Infrastructure")));
+            {
+                options.UseSqlServer(connectionString ?? databaseSettings.ProductionConnection, b => b.MigrationsAssembly("Auth.Infrastructure"));
+            });
         }
 
         return services;

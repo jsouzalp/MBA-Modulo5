@@ -1,5 +1,5 @@
 @echo off
-set "projetoCaminho=."
+set "projetoCaminho=..\"
 
 for /d /r %projetoCaminho% %%d in (bin obj) do (
     if exist "%%d" (

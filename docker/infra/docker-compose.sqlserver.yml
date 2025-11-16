@@ -13,6 +13,9 @@ services:
       SQLSERVER_PORT: 1433
     volumes:
       - sqlserver_data:/var/opt/mssql
+      - ../../data:/scripts
+      - ./sqlserver-init:/custom-entrypoint
+    command: [ "/bin/bash", "/custom-entrypoint/entrypoint.sh" ]
     networks:
       - plataforma-network
     healthcheck:

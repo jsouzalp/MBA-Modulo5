@@ -83,13 +83,16 @@ internal class Program
            .WithName("HealthCheck")
            .WithOpenApi();
 
-        using (var scope = app.Services.CreateScope())
+        if (builder.Environment.IsDevelopment())
         {
-            var context = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            await InitializeDatabaseAsync(context, userManager, roleManager);
+                await InitializeDatabaseAsync(context, userManager, roleManager);
+            }
         }
 
         app.Run();
