@@ -27,7 +27,10 @@ public class Program
             .WithName("HealthCheck")
             .WithOpenApi();
 
-        app.UseDbMigrationHelper();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDbMigrationHelper();
+        }
 
         app.Run();
     }

@@ -6,9 +6,9 @@ services:
       context: ../../src/backend
       dockerfile: pagamentos-api/Dockerfile
     ports:
-      - '5003:5003'
+      - '5004:5004'
     expose:
-      - 5003
+      - 5004
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:5004;http://+:7004

@@ -112,11 +112,7 @@ CREATE INDEX [MaterialOrdemIDX] ON [Materiais] ([Ordem]);
 
 CREATE INDEX [MaterialTipoMaterialIDX] ON [Materiais] ([TipoMaterial]);
 
-INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20251116111048_InitialMigrationSqlServer', N'9.0.8');
-
-
-
+COMMIT;
 
 END
 

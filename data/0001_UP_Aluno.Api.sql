@@ -87,7 +87,6 @@ CREATE INDEX [MatriculasCursosAlunoIdIDX] ON [MatriculasCursos] ([AlunoId]);
 CREATE INDEX [MatriculasCursosCursoIdIDX] ON [MatriculasCursos] ([CursoId]);
 
 COMMIT;
-GO
 
 
 
