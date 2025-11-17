@@ -4,5 +4,5 @@ metadata:
   name: alunos-api-config
   namespace: plataforma-educacional
 data:
-  ASPNETCORE_ENVIRONMENT: "Kubernetes"
-  ExternalApis__ConteudoApi: "http://conteudo-api:8081"
+  ASPNETCORE_ENVIRONMENT:    "Kubernetes"
+  ExternalApis__ConteudoApi: "http://conteudo-api:8083"

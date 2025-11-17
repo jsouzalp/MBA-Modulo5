@@ -16,16 +16,18 @@ spec:
       containers:
         - name: bff-api
           image: educa/bff-api:latest
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8084
+            - containerPort: 5000
           envFrom:
             - configMapRef: { name: bff-api-config }
+            - secretRef:    { name: bff-api-secret }
           livenessProbe:
-            httpGet: { path: /health, port: 8084 }
+            httpGet: { path: /health, port: 5000 }
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
-            httpGet: { path: /health, port: 8084 }
+            httpGet: { path: /health, port: 5000 }
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:

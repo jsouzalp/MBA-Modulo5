@@ -16,17 +16,18 @@ spec:
       containers:
         - name: pagamentos-api
           image: educa/pagamentos-api:latest
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8083
+            - containerPort: 5004
           envFrom:
             - configMapRef: { name: pagamentos-api-config }
             - secretRef:    { name: pagamentos-api-secret }
           livenessProbe:
-            httpGet: { path: /health, port: 8083 }
+            httpGet: { path: /health, port: 5004 }
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
-            httpGet: { path: /health, port: 8083 }
+            httpGet: { path: /health, port: 5004 }
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:

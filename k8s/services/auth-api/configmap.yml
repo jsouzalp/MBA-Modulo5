@@ -5,5 +5,6 @@ metadata:
   namespace: plataforma-educacional
 data:
   ASPNETCORE_ENVIRONMENT: "Kubernetes"
-  JWT__Issuer: "https://auth.local"
-  JWT__Audience: "https://auth.local/users"
+  JWT__Issuer:            "https://auth.local"
+  JWT__Audience:          "https://auth.local/users"
+  

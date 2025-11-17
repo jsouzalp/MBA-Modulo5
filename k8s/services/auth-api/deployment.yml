@@ -16,17 +16,18 @@ spec:
       containers:
         - name: auth-api
           image: educa/auth-api:latest
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 5001
           envFrom:
             - configMapRef: { name: auth-api-config }
             - secretRef:    { name: auth-api-secret }
           livenessProbe:
-            httpGet: { path: /health, port: 8080 }
+            httpGet: { path: /health, port: 5001 }
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
-            httpGet: { path: /health, port: 8080 }
+            httpGet: { path: /health, port: 5001 }
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:

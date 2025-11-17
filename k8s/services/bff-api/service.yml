@@ -7,5 +7,5 @@ spec:
   selector:
     app: bff-api
   ports:
-    - port: 8084
-      targetPort: 8084
+    - port: 8080
+      targetPort: 5000

@@ -4,6 +4,7 @@
 
 $k8sPath = "./k8s"
 $namespace = "plataforma-educacional"
+$ErrorActionPreference = "Stop"
 
 Write-Host ""
 Write-Host "================================================================" -ForegroundColor Cyan
@@ -13,65 +14,41 @@ Write-Host "===  Namespace: $namespace                                   ===" -F
 Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 
-# ------------------------------------------------------------------------
-# 1️⃣  Confirmação opcional de segurança
-# ------------------------------------------------------------------------
-$confirmation = Read-Host "Tem certeza que deseja REMOVER todo o ambiente do namespace '$namespace'? (s/n)"
-if ($confirmation -ne 's') {
-    Write-Host "Operação cancelada pelo usuário." -ForegroundColor Yellow
-    exit 0
+
+# -----------------------------
+# 1) Remover recursos por pasta
+# -----------------------------
+function Remove-Folder($path, $label) {
+    Write-Host "`n[$label] Removendo '$path'..." -ForegroundColor Red
+    kubectl delete -f $path -n $namespace --ignore-not-found
 }
 
-# ------------------------------------------------------------------------
-# 2️⃣  Verifica se Minikube está ativo
-# ------------------------------------------------------------------------
-Write-Host "Verificando status do Minikube..." -ForegroundColor Yellow
-$minikubeStatus = & minikube status | Select-String "host: Running"
+Remove-Folder "$k8sPath/services/frontend"       "1/6"
+Remove-Folder "$k8sPath/services/bff-api"        "2/6"
+Remove-Folder "$k8sPath/services/pagamentos-api" "3/6"
+Remove-Folder "$k8sPath/services/alunos-api"     "4/6"
+Remove-Folder "$k8sPath/services/conteudo-api"   "5/6"
+Remove-Folder "$k8sPath/services/auth-api"       "6/6"
 
-if (-not $minikubeStatus) {
-    Write-Host "⚠️  Minikube não está ativo. Nada a destruir." -ForegroundColor Red
-    exit 0
-}
+Remove-Folder "$k8sPath/infra/rabbitmq"          "1/3"
+Remove-Folder "$k8sPath/infra/redis"             "2/3"
+Remove-Folder "$k8sPath/infra/sqlserver"         "3/3"
 
-# ------------------------------------------------------------------------
-# 3️⃣  Remove os recursos do namespace
-# ------------------------------------------------------------------------
-Write-Host "Removendo recursos do namespace '$namespace'..." -ForegroundColor Yellow
-kubectl delete all --all -n $namespace
-kubectl delete configmap --all -n $namespace
-kubectl delete secret --all -n $namespace
-kubectl delete pvc --all -n $namespace
+# -----------------------------
+# 2) Remover o namespace
+# -----------------------------
+Write-Host "`n[3/6] Removendo namespace '$namespace'..." -ForegroundColor Red
+kubectl delete namespace $namespace --ignore-not-found
 
-# ------------------------------------------------------------------------
-# 4️⃣  Remove o namespace (limpa tudo)
-# ------------------------------------------------------------------------
-Write-Host "Removendo namespace..." -ForegroundColor Yellow
-kubectl delete namespace $namespace --ignore-not-found=true
+Write-Host "Aguardando namespace remover completamente..." -ForegroundColor Yellow
+kubectl wait --for=delete namespace/$namespace --timeout=120s
 
-# ------------------------------------------------------------------------
-# 5️⃣  Verifica se ainda há pods residuais
-# ------------------------------------------------------------------------
-Write-Host "Verificando pods residuais..." -ForegroundColor Yellow
-$pods = kubectl get pods -A | Select-String $namespace
-if ($pods) {
-    Write-Host "⚠️  Alguns pods ainda estão sendo encerrados. Aguarde alguns segundos..." -ForegroundColor Yellow
-    Start-Sleep -Seconds 10
-}
+# -----------------------------
+# Estado final
+# -----------------------------
+Write-Host "`n[6/6] Namespaces restantes:" -ForegroundColor Cyan
+kubectl get ns
 
-# ------------------------------------------------------------------------
-# 6️⃣  Pergunta se deseja parar o Minikube
-# ------------------------------------------------------------------------
-$stopChoice = Read-Host "Deseja parar o Minikube também? (s/n)"
-if ($stopChoice -eq 's') {
-    Write-Host "Parando o Minikube..." -ForegroundColor Yellow
-    & minikube stop
-}
-
-# ------------------------------------------------------------------------
-# 7️⃣  Finalização
-# ------------------------------------------------------------------------
-Write-Host ""
-Write-Host "====================================================" -ForegroundColor Green
-Write-Host "✅  Ambiente Kubernetes removido com sucesso!      " -ForegroundColor Green
-Write-Host "====================================================" -ForegroundColor Green
-Write-Host ""
+Write-Host "====================================" -ForegroundColor Green
+Write-Host "=== REMOCAO FINALIZADA COM SUCESSO! " -ForegroundColor Green
+Write-Host "====================================" -ForegroundColor Green

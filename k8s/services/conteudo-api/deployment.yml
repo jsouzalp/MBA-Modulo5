@@ -16,17 +16,18 @@ spec:
       containers:
         - name: conteudo-api
           image: educa/conteudo-api:latest
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8081
+            - containerPort: 5002
           envFrom:
             - configMapRef: { name: conteudo-api-config }
             - secretRef:    { name: conteudo-api-secret }
           livenessProbe:
-            httpGet: { path: /health, port: 8081 }
+            httpGet: { path: /health, port: 5002 }
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
-            httpGet: { path: /health, port: 8081 }
+            httpGet: { path: /health, port: 5002 }
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:

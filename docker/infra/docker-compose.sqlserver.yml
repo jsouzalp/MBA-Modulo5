@@ -7,10 +7,11 @@ services:
     expose:
       - 1433
     environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: PlataformaEducacional123!
-      MSSQL_PID: Express
-      SQLSERVER_PORT: 1433
+      - ACCEPT_EULA: Y
+      - SA_PASSWORD: PlataformaEducacional123!
+      - MSSQL_PID: Express
+      - SQLSERVER_PORT: 1433
+      - MSSQL_COLLATION: SQL_Latin1_General_CP1_CI_AI
     volumes:
       - sqlserver_data:/var/opt/mssql
       - ../../data:/scripts

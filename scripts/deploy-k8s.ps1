@@ -4,86 +4,67 @@
 
 $k8sPath = "./k8s"
 $namespace = "plataforma-educacional"
+$ErrorActionPreference = "Stop"
 
 Write-Host ""
-Write-Host "==================================================================" -ForegroundColor Cyan
-Write-Host "===  Deploy Kubernetes - Plataforma Educacional (MBA DevXpert) ===" -ForegroundColor Cyan
-Write-Host "===  Caminho dos Manifests: $k8sPath                              " -ForegroundColor Yellow
-Write-Host "===  Namespace: $namespace                                        " -ForegroundColor Yellow
-Write-Host "==================================================================" -ForegroundColor Cyan
+Write-Host "===================================================================" -ForegroundColor Cyan
+Write-Host "===  Inicializando ambiente Kubernetes - Plataforma Educacional    " -ForegroundColor Cyan
+Write-Host "===  Caminho dos Manifests: $k8sPath                               " -ForegroundColor Yellow
+Write-Host "===  Namespace: $namespace                                         " -ForegroundColor Yellow
+Write-Host "===================================================================" -ForegroundColor Cyan
 Write-Host ""
 
-# ------------------------------------------------------------------------
-# 1) Verifica se o Minikube esta em execucao
-# ------------------------------------------------------------------------
-Write-Host "Verificando status do Minikube..." -ForegroundColor Yellow
-$minikubeStatus = & minikube status | Select-String "host: Running"
+# Criar namespace somente se não existir
+Write-Host "`n[1/10] Verificando namespace..." -ForegroundColor Green
+$nsExists = kubectl get namespace $namespace --ignore-not-found
 
-if (-not $minikubeStatus) {
-    Write-Host "Minikube nao esta em execucao. Iniciando cluster..." -ForegroundColor Yellow
-    & minikube start --driver=docker
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Falha ao iniciar Minikube." -ForegroundColor Red
-        exit 1
-    }
+if (-not $nsExists) {
+    Write-Host "Namespace '$namespace' nao existe. Criando..." -ForegroundColor Yellow
+    kubectl create namespace $namespace
 } else {
-    Write-Host "✅ Minikube ja esta ativo." -ForegroundColor Green
+    Write-Host "Namespace '$namespace' ja existe." -ForegroundColor DarkGreen
 }
 
-# ------------------------------------------------------------------------
-# 2) Cria o namespace se nao existir
-# ------------------------------------------------------------------------
-Write-Host "Aplicando namespace..." -ForegroundColor Yellow
-kubectl apply -f "$k8sPath/namespace.yml"
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Falha ao aplicar namespace." -ForegroundColor Red
-    exit 1
+# -----------------------------
+# Função para aplicar pasta
+# -----------------------------
+function Apply-Folder($path, $label) {
+    Write-Host "`n[$label] Aplicando '$path'..." -ForegroundColor Green
+    kubectl apply -f $path -n $namespace
 }
 
-# ------------------------------------------------------------------------
-# 3) Aplica infraestrutura (SQL, RabbitMQ, Redis)
-# ------------------------------------------------------------------------
-Write-Host "Aplicando infraestrutura..." -ForegroundColor Yellow
-kubectl apply -f "$k8sPath/infra/" -n $namespace
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Falha ao aplicar infraestrutura." -ForegroundColor Red
-    exit 1
-}
+# -----------------------------
+# 2) Infraestrutura
+# -----------------------------
+Apply-Folder "$k8sPath/infra/sqlserver"    "2/10"
+Apply-Folder "$k8sPath/infra/redis"        "3/10"
+Apply-Folder "$k8sPath/infra/rabbitmq"     "4/10"
 
-# ------------------------------------------------------------------------
-# 4) Aguarda subida dos pods de infra
-# ------------------------------------------------------------------------
-Write-Host "Aguardando pods de infraestrutura ficarem prontos..." -ForegroundColor Yellow
-kubectl wait --for=condition=Ready pods --all -n $namespace --timeout=180s
+# -----------------------------
+# 3) Aguardar SQL Server
+# -----------------------------
+Write-Host "`n[5/7] Aguardando SQL Server ficar pronto..." -ForegroundColor Green
+kubectl wait --for=condition=ready pod -l app=sqlserver -n $namespace --timeout=180s
 
-# ------------------------------------------------------------------------
-# 5) Aplica microsservicos (APIs + BFF + Frontend)
-# ------------------------------------------------------------------------
-Write-Host "Aplicando microsservicos (APIs + BFF + Frontend)..." -ForegroundColor Yellow
-kubectl apply -f "$k8sPath/services/" -n $namespace
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Falha ao aplicar servicos." -ForegroundColor Red
-    exit 1
-}
+# -----------------------------
+# 4) Serviços
+# -----------------------------
+Apply-Folder "$k8sPath/services/auth-api"        "5/10"
+Apply-Folder "$k8sPath/services/conteudo-api"    "6/10"
+Apply-Folder "$k8sPath/services/alunos-api"      "7/10"
+Apply-Folder "$k8sPath/services/pagamentos-api"  "8/10"
+Apply-Folder "$k8sPath/services/bff-api"         "9/10"
+Apply-Folder "$k8sPath/services/frontend"        "10/10"
 
-# ------------------------------------------------------------------------
-# 6) Exibe status dos pods e services
-# ------------------------------------------------------------------------
-Write-Host ""
-Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host "✅  Recursos implantados com sucesso!" -ForegroundColor Green
-Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host ""
-
+# -----------------------------
+# 5) Mostrar estado final
+# -----------------------------
+Write-Host "`n[7/7] Estado final dos pods:" -ForegroundColor Cyan
 kubectl get pods -n $namespace
-Write-Host ""
+
+Write-Host "`nServiços:" -ForegroundColor Cyan
 kubectl get svc -n $namespace
 
-# ------------------------------------------------------------------------
-# 7) (Opcional) Abre o frontend no navegador
-# ------------------------------------------------------------------------
-Write-Host ""
-Write-Host "Abrindo o frontend via Minikube..." -ForegroundColor Yellow
-minikube service frontend -n $namespace
-
-
+Write-Host "====================================" -ForegroundColor Green
+Write-Host "=== DEPLOY FINALIZADO COM SUCESSO!  " -ForegroundColor Green
+Write-Host "====================================" -ForegroundColor Green

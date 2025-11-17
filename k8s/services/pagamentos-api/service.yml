@@ -7,5 +7,5 @@ spec:
   selector:
     app: pagamentos-api
   ports:
-    - port: 8083
-      targetPort: 8083
+    - port: 8084
+      targetPort: 5004
