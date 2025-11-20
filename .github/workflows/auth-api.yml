@@ -45,8 +45,8 @@ jobs:
       - name: 🔐 Docker Hub Login
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: "jsouzalp"
+          password: "dckr_pat_B-eZxN5y37DwEdkfMh6kjpFIBCI"
 
       - name: 🐳 Docker Build & Push
         uses: docker/build-push-action@v5
@@ -55,5 +55,5 @@ jobs:
           file: src/backend/auth-api/Dockerfile
           push: true
           tags: |
-            ${{ vars.DOCKER_USERNAME }}/project5-auth-api:latest
-            ${{ vars.DOCKER_USERNAME }}/project5-auth-api:${{ github.sha }}
+            jsouzalp/project5-auth-api:latest
+            jsouzalp/project5-auth-api:${{ github.sha }}
