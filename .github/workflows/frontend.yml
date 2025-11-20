@@ -50,7 +50,7 @@ jobs:
       - name: 🔐 Login no Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 🐳 Build & Push Frontend
@@ -60,5 +60,5 @@ jobs:
           file: src/frontend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/project5-frontend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/project5-frontend:${{ github.sha }}
+            ${{ vars.DOCKER_USERNAME }}/project5-frontend:latest
+            ${{ vars.DOCKER_USERNAME }}/project5-frontend:${{ github.sha }}
