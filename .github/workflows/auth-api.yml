@@ -42,6 +42,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug Docker secrets
+        run: |
+          if [ -z "${{ secrets.DOCKERHUB_USERNAME }}" ]; then
+            echo "USERNAME está VAZIO!"
+          else
+            echo "USERNAME está DEFINIDO (mas oculto)."
+          fi
+
+          if [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+            echo "TOKEN está VAZIO!"
+          else
+            echo "TOKEN está DEFINIDO (mas oculto)."
+          fi
+
       - name: 🔐 Docker Hub Login
         uses: docker/login-action@v3
         with:
