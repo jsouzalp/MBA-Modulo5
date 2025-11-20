@@ -1,0 +1,271 @@
+SALTO NO SEQUENCIAL DO DOCUMENTO FISCAL POR PROBLEMAS SISTÊMICOS
+
+
+http://localhost:5000/swagger/index.html
+
+
+Beira#2110443
+Liberdade@!112025_a
+
+C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api
+C:\Projetos\Proth\MBA\Project5\src\backend\auth-api
+C:\Projetos\Proth\MBA\Project5\src\backend\bff-api
+C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api
+C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api
+C:\Projetos\Proth\MBA\Project5\src\frontend (que é um projeto angular)
+
+
+
+bff-api → containerPort: 5000, Service expõe 8080
+auth-api → containerPort: 5001, Service expõe 8081
+conteudo-api → containerPort: 5002, Service expõe 8082
+alunos-api → containerPort: 5003, Service expõe 8083
+pagamentos-api → containerPort: 5004, Service expõe 8084
+frontend → containerPort: 4200, Service expõe 80 (NodePort 30080)
+
+
+
+Instalar Minikube
+- choco install minikube
+- minikube version
+
+Subir o minikube:
+- minikube delete
+- minikube start --driver=docker --cpus=4 --memory=8192 --disk-size=40g
+  minikube start --driver=docker --cpus=4 --memory=8192 --disk-size=40g
+
+Caso o minikube não suba por falta de memória.
+- Limpe tudo
+minikube delete --all --purge
+docker system prune -a --volumes
+
+- Rode com memória real
+minikube start --driver=docker --cpus=4 --memory=8192 --disk-size=40g
+
+- Comando para habilitar ver os containers no docker
+minikube ssh -- df -h
+minikube ssh -- free -m
+
+
+
+
+
+
+
+Criar o namespace
+- kubectl create namespace plataforma-educacional
+
+Se tiver problemas no deploy do minikube...
+1) Melhorar a cache local do minikube
+- minikube config set container-runtime docker
+- minikube config set memory 8192
+- minikube config set cpus 4
+- minikube config set disk-size 40g
+2) apagar minikube
+- minikube delete
+3) Iniciar o minikube com configuração específica
+- minikube start --driver=docker --cpus=4 --memory=8192 --disk-size=40g
+
+
+
+
+  "ApiSettings": {
+    "AuthApiUrl": "http://localhost:5001",
+    "ConteudoApiUrl": "http://localhost:5002",
+    "AlunosApiUrl": "http://localhost:5003",
+    "PagamentosApiUrl": "http://localhost:5004"
+  },
+
+
+Token Docker HUB
+Run: docker login -u jsouzalp
+Token: dckr_pat_mzKcpS11NB-bnaay46NTsCMQ2rA
+
+
+Soluções no C#
+C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\BFF.API.sln
+C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\Auth.API.sln
+C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\Conteudo.API.sln
+C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\Alunos.API.sln
+C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\Pagamentos.API.sln
+
+Projetos no C#
+C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\src\BFF.API\BFF.API.csproj
+C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\src\Auth.API\Auth.API.csproj
+C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\src\Conteudo.API\Conteudo.API.csproj
+C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\src\Alunos.API\Alunos.API.csproj
+C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\src\Pagamentos.API\Pagamentos.API.csproj
+
+Respectivos Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\Dockerfile
+C:\Projetos\Proth\MBA\Project5\src\frontend\Dockerfile [Frontend] 
+
+Docker Compose de Infra
+C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.sqlserver.yml
+C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.redis.yml
+C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.rabbitmq.yml
+
+Docker Compose de Services
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.bff-api.yml
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.auth-api.yml
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.conteudo-api.yml
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.alunos-api.yml
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.pagamentos-api.yml
+C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.frontend.yml [Frontend]
+
+Não sei se será preciso, mas este é o meu script .ps1 que faz o processamento dos dockerfiles/docker compose
+C:\Projetos\Proth\MBA\Project5\scripts\start-all.ps1
+
+
+
+
+
+C:\Projetos\Proth\MBA\Project5\
+│
+├── docker/
+│	├── infra/
+│	│   ├── docker-compose.sqlserver.yml
+│	│   ├── docker-compose.rabbitmq.yml
+│	│   ├── docker-compose.redis.yml
+│	│
+│	├── services/
+│	│   ├── docker-compose.auth-api.yml
+│	│   ├── docker-compose.alunos-api.yml
+│	│   ├── docker-compose.conteudo-api.yml
+│	│   ├── docker-compose.pagamentos-api.yml
+│	│   ├── docker-compose.bff-api.yml
+│	│   ├── docker-compose.frontend.yml
+│	│
+│	├── docker-compose.full.yml
+│	└── env/
+│		├── infra.sqlserver.env
+│		├── infra.rabbitmq.env
+│		├── infra.redis.env
+│		├── auth-api.env
+│		├── conteudo-api.env
+│		├── alunos-api.env
+│		├── pagamentos-api.env
+│		├── bff-api.env
+│		└── frontend.env
+│
+├── src\
+│   ├── backend\
+│   │   ├── alunos-api\
+│   │   ├── auth-api\
+│   │   ├── bff-api\
+│   │   ├── conteudo-api\
+│   │   └── pagamentos-api\
+│   │
+│   └── frontend\
+│       └── (projeto Angular)
+│
+└── start-all.ps1
+
+
+k8s/
+├── infra/
+│   ├── sqlserver/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   └── secret.yml
+│   ├── rabbitmq/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   └── configmap.yml
+│   └── redis/
+│       ├── deployment.yml
+│       ├── service.yml
+│
+├── services/
+│   ├── auth-api/
+│   │   ├── deployment.yml
+│   │   ├── service.yml
+│   │   ├── configmap.yml
+│   │   └── secret.yml
+│   ├── conteudo-api/
+│   ├── alunos-api/
+│   ├── pagamentos-api/
+│   ├── bff-api/
+│   └── frontend/
+│
+└── namespace.yml
+
+
+
+
+Namespace: plataforma-educacional
+Prefixo de imagens: educa/<serviço>:latest
+Padrão de portas (container): auth 8080, conteudo 8081, alunos 8082, pagamentos 8083, bff 8084, frontend 80
+Probes: GET /health (APIs e BFF); frontend checa /
+Recursos (mínimos): requests/limits leves para passar no cluster local
+Variáveis: tudo que é repetitivo isolado em ConfigMap e Secret
+
+
+
+
+
+docker compose -f .\docker\infra\docker-compose.sqlserver.yml config
+docker compose -f .\docker\infra\docker-compose.rabbitmq.yml config
+docker compose -f .\docker\infra\docker-compose.redis.yml config
+
+docker compose -f .\docker\infra\docker-compose.sqlserver.yml up -d
+docker compose -f .\docker\infra\docker-compose.rabbitmq.yml up -d
+docker compose -f .\docker\infra\docker-compose.redis.yml up -d
+
+
+docker volume prune -f
+docker network rm plataforma-network-rabbitmq | Out-Null
+docker network rm plataforma-network-sqlserver | Out-Null
+
+
+
+kubectl apply -f k8s/namespace.yml
+
+kubectl apply -f k8s/infra/sqlserver/secret.yml
+kubectl apply -f k8s/infra/sqlserver/deployment.yml
+kubectl apply -f k8s/infra/sqlserver/service.yml
+
+kubectl apply -f k8s/infra/rabbitmq/configmap.yml
+kubectl apply -f k8s/infra/rabbitmq/deployment.yml
+kubectl apply -f k8s/infra/rabbitmq/service.yml
+
+kubectl apply -f k8s/infra/redis/deployment.yml
+kubectl apply -f k8s/infra/redis/service.yml
+
+kubectl apply -f k8s/services/auth-api/ -f k8s/services/conteudo-api/ \
+  -f k8s/services/alunos-api/ -f k8s/services/pagamentos-api/ \
+  -f k8s/services/bff-api/ -f k8s/services/frontend/
+
+
+
+
+Configuração do minikube
+
+== Instalação
+choco install minikube -y
+choco install kubernetes-cli -y
+
+== Iniciar o cluster
+minikube start --driver=docker
+
+
+== verificar nodes
+kubectl get nodes
+
+== Criar namespace
+kubectl apply -f k8s/
+
+== Ver os PODs
+kubectl get all -n plataforma-educacional
+
+== Acessar o front
+minikube service frontend -n plataforma-educacional
+
+
+
+
+

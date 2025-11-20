@@ -1,0 +1,128 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a [routerLink]="['/pages/dashboard']">
+              <img src="./assets/images/logos/logo.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+
+          <form class="m-t-30" [formGroup]="form">
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nome completo</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="text" formControlName="nome" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['nome']">
+              <mat-error>{{displayMessage['nome']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">E-mail</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['email']">
+              <mat-error>{{displayMessage['email']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nascimento</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <small class="text-error" *ngIf="displayMessage['dataNascimento']">
+              <p [innerHTML]="displayMessage['dataNascimento']"></p>
+            </small>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Gênero</mat-label>
+            <mat-radio-group color="primary" formControlName="genero" class="w-100">
+              <mat-radio-button class="m-r-16" value="Masculino">Masculino</mat-radio-button>
+              <mat-radio-button class="m-r-16" value="Feminino">Feminino</mat-radio-button>
+              <mat-radio-button value="Outros">Outros</mat-radio-button>
+            </mat-radio-group>
+            <span *ngIf="displayMessage['genero']">
+              <mat-error>{{displayMessage['genero']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">CPF</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" formControlName="cpf" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['cpf']">
+              <mat-error>{{displayMessage['cpf']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Fone</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" formControlName="telefone" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['telefone']">
+              <mat-error>{{displayMessage['telefone']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Cidade</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="text" formControlName="cidade" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['cidade']">
+              <mat-error>{{displayMessage['cidade']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">UF</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="text" formControlName="estado" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['estado']">
+              <mat-error>{{displayMessage['estado']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">CEP</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" formControlName="cep" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['cep']">
+              <mat-error>{{displayMessage['cep']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Foto</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="text" formControlName="foto" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['foto']">
+              <mat-error>{{displayMessage['foto']}}</mat-error>
+            </span>
+
+            <!-- password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Senha</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" formControlName="senha" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['senha']">
+              <mat-error>{{displayMessage['senha']}}</mat-error>
+            </span>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Confirmação de senha</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" formControlName="confirmaSenha" />
+            </mat-form-field>
+            <span *ngIf="displayMessage['confirmaSenha']">
+              <mat-error>{{displayMessage['confirmaSenha']}}</mat-error>
+            </span>
+
+            <a (click)="submit()" mat-flat-button color="primary" class="w-100" [disabled]="!form.valid">
+              Cadastrar
+            </a>
+            <!-- input -->
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24">Já tem uma conta ?
+
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Acessar</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

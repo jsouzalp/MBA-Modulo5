@@ -1,0 +1,59 @@
+<section class="page-header">
+  <h2>Minhas Matrículas</h2>
+  <p class="subtitle">Acompanhe o status dos seus cursos e emita certificados quando concluir.</p>
+  <hr />
+</section>
+
+<table mat-table [dataSource]="matriculas" class="mat-elevation-z1 w-100" *ngIf="matriculas?.length; else vazio">
+  <ng-container matColumnDef="curso">
+    <th mat-header-cell *matHeaderCellDef>Curso</th>
+    <td mat-cell *matCellDef="let m">{{m.nomeCurso}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let m">{{m.estadoMatricula}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="progresso">
+    <th mat-header-cell *matHeaderCellDef>Progresso</th>
+    <td mat-cell *matCellDef="let m">
+      <div *ngIf="m.estadoMatricula === 'Curso concluído'; else progressoBar">
+        <span class="concluido-badge">100% Concluído</span>
+      </div>
+      <ng-template #progressoBar>
+        <span class="em-andamento">Em andamento</span>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef>Ações</th>
+    <td mat-cell *matCellDef="let m">
+      <button *ngIf="m.estadoMatricula === 'Curso concluído' && !m.certificado" 
+              mat-stroked-button color="primary" 
+              (click)="solicitarCertificado(m)">
+        Emitir Certificado
+      </button>
+      <span *ngIf="m.estadoMatricula === 'Curso concluído' && m.certificado" 
+            class="certificado-emitido">
+        ✓ Certificado Emitido
+      </span>
+      <span *ngIf="m.estadoMatricula !== 'Curso concluído'" 
+            class="curso-pendente">
+        Curso em andamento
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="cols"></tr>
+  <tr mat-row *matRowDef="let row; columns: cols"></tr>
+</table>
+
+<ng-template #vazio>
+  <div class="empty-state">
+    <p>Você ainda não possui matrículas.</p>
+  </div>
+</ng-template>
+
+

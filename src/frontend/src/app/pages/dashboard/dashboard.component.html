@@ -1,0 +1,172 @@
+<!-- Dashboard do Administrador -->
+<ng-container *ngIf="isAdmin">
+  <section class="page-header mb-3">
+    <h2 class="h3 fw-bold text-dark mb-1">Dashboard do Administrador</h2>
+    <p class="text-muted mb-0">Visão geral do sistema</p>
+  </section>
+
+  <div class="row g-3" *ngIf="!carregando; else loadingBlock">
+    <!-- Métricas Principais -->
+    <div class="col-lg-3 col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-3 text-center">
+          <h3 class="fw-bold mb-1">{{dashboardAdmin?.data?.estatisticasAlunos?.totalAlunos || 0}}</h3>
+          <p class="text-muted small mb-0">Total de Alunos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-3 text-center">
+          <h3 class="fw-bold mb-1">{{dashboardAdmin?.data?.estatisticasAlunos?.novasMatriculasHoje || 0}}</h3>
+          <p class="text-muted small mb-0">Novas Matrículas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-3 text-center">
+          <h3 class="fw-bold mb-1">{{dashboardAdmin?.data?.estatisticasCursos?.totalCursos || 0}}</h3>
+          <p class="text-muted small mb-0">Total de Cursos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-3 text-center">
+          <h3 class="fw-bold mb-1">R$ {{(dashboardAdmin?.data?.relatorioVendas?.vendasMes || 0) | number:'1.0-0'}}</h3>
+          <p class="text-muted small mb-0">Vendas do Mês</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estatísticas Básicas -->
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0 pb-0">
+          <h5 class="card-title mb-0 text-dark">Estatísticas</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <span class="text-muted">Alunos Ativos:</span>
+                <span class="fw-bold ms-2">{{dashboardAdmin?.data?.estatisticasAlunos?.alunosAtivos || 0}}</span>
+              </div>
+              <div class="mb-3">
+                <span class="text-muted">Cursos Ativos:</span>
+                <span class="fw-bold ms-2">{{dashboardAdmin?.data?.estatisticasCursos?.cursosAtivos || 0}}</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <span class="text-muted">Taxa de Conversão:</span>
+                <span class="fw-bold text-success ms-2">{{dashboardAdmin?.data?.relatorioVendas?.taxaConversao ||
+                  0}}%</span>
+              </div>
+              <div class="mb-3">
+                <span class="text-muted">Transações:</span>
+                <span class="fw-bold ms-2">{{dashboardAdmin?.data?.relatorioVendas?.totalTransacoes || 0}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vendas por Período -->
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0 pb-0">
+          <h5 class="card-title mb-0 text-dark">Vendas</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="text-center p-2 bg-light rounded">
+                <div class="fw-bold text-primary">R$ {{(dashboardAdmin?.data?.relatorioVendas?.vendasHoje || 0) |
+                  number:'1.0-0'}}</div>
+                <small class="text-muted">Hoje</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-2 bg-light rounded">
+                <div class="fw-bold text-success">R$ {{(dashboardAdmin?.data?.relatorioVendas?.vendasSemana || 0) |
+                  number:'1.0-0'}}</div>
+                <small class="text-muted">Semana</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-2 bg-light rounded">
+                <div class="fw-bold text-warning">R$ {{(dashboardAdmin?.data?.relatorioVendas?.vendasMes || 0) |
+                  number:'1.0-0'}}</div>
+                <small class="text-muted">Mês</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-2 bg-light rounded">
+                <div class="fw-bold text-info">R$ {{(dashboardAdmin?.data?.relatorioVendas?.vendasAno || 0) |
+                  number:'1.0-0'}}</div>
+                <small class="text-muted">Ano</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+
+<!-- Dashboard do Aluno -->
+<ng-container *ngIf="!isAdmin">
+  <section class="page-header">
+    <h2>Dashboard do Aluno</h2>
+    <p class="subtitle">Resumo das suas atividades recentes.</p>
+    <hr />
+  </section>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h4>Progresso Geral</h4>
+        <ng-container *ngIf="!carregando; else loadingBlock">
+          <div class="display-6">{{progressoGeral?.percentualConcluidoGeral || 0}}%</div>
+          <small>Cursos matriculados: {{progressoGeral?.cursosMatriculados || 0}}</small>
+          <div class="mt-2">
+            <small>Concluídos: {{progressoGeral?.cursosConcluidos || 0}}</small>
+          </div>
+          <div>
+            <small>Certificados emitidos: {{progressoGeral?.certificadosEmitidos || 0}}</small>
+          </div>
+          <div>
+            <small>Horas estudadas: {{progressoGeral?.horasEstudadas || 0}}</small>
+          </div>
+        </ng-container>
+        <ng-template #loadingBlock>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card p-3">
+        <h4>Percentual Concluído</h4>
+        <apx-chart [series]="chartSeries" [chart]="chartOptions.chart" [plotOptions]="chartOptions.plotOptions"
+          [fill]="chartOptions.fill" [stroke]="chartOptions.stroke" [labels]="chartOptions.labels">
+        </apx-chart>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loadingBlock>
+  <div class="text-center p-3">
+    <div class="spinner-border text-primary mb-2" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+    <h6 class="text-muted">Carregando dashboard...</h6>
+  </div>
+</ng-template>

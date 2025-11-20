@@ -1,0 +1,73 @@
+<h3 mat-dialog-title>Mensagens</h3>
+<mat-dialog-content>
+    <div class="table-responsive">
+        <table mat-table [dataSource]="messages">
+          <!-- message Column -->
+          <ng-container matColumnDef="message">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14"
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <h6 class="mat-body-1 f-s-16 m-b-4">
+                <span class="f-w-600"
+                  >{{ element.message }}
+                </span>
+              </h6>
+            </td>
+          </ng-container>
+
+          <!-- message Column -->
+          <ng-container matColumnDef="type">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14"
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <h6 class="mat-body-1 f-s-16 m-b-4">
+                <span class="f-w-600"
+                  >{{ element.type }}
+                </span>
+              </h6>
+            </td>
+          </ng-container>          
+
+          <!-- message Column -->
+          <ng-container matColumnDef="delete">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14"
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <h6 class="mat-body-1 f-s-16 m-b-4">
+                <button mat-icon-button (click)="deleteMessage(element.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>                
+              </h6>
+            </td>
+          </ng-container>            
+   
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <ng-container *ngIf="messages.length == 0">
+        <p>Sem mensagens no momento.</p>
+      </ng-container>
+  <mat-dialog-actions align="end">
+    <button
+      mat-raised-button
+      (click)="close()"
+      color="secondary"
+      cdkFocusInitial
+    >
+      Fechar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

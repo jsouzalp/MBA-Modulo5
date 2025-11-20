@@ -1,0 +1,29 @@
+services:
+  frontend:
+    image: educa/frontend:latest
+    container_name: frontend
+    build:
+      context: ../../src/frontend
+      dockerfile: Dockerfile
+    ports:
+      - '4200:80'
+    expose:
+      - 4200
+    environment:
+      - API_URL=http://localhost:5000
+    networks:
+      - plataforma-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4200']
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      
+# volumes:
+#   pagamentos-api-volume: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true
