@@ -1,64 +1,58 @@
-name: Frontend (Angular) - CI/CD
+name: Frontend - CI/CD
 
 on:
-  push:
+  pull_request:
+    branches: [ DEV, PR, main ]
     paths:
       - 'src/frontend/**'
-  pull_request:
+
+  push:
+    branches: [ DEV, PR, main ]
     paths:
       - 'src/frontend/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🔄 Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Instala Node
-      - name: 🟢 Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
 
-      # Instala dependências
-      - name: 📦 Install dependencies
+      - name: Install deps
         run: |
           cd src/frontend
           npm install
 
-      # Build do Angular
-      - name: 🏗 Build Angular project
+      - name: Build Angular
         run: |
           cd src/frontend
           npm run build --if-present
 
-  # ===========================
-  # DOCKER BUILD & PUSH
-  # ===========================
   docker-build-push:
     needs: build
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - name: 🔄 Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🔐 Login no Docker Hub
+      - name: Docker Login
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 🐳 Build & Push Frontend
+      - name: Docker Build & Push
         uses: docker/build-push-action@v5
         with:
           context: src/frontend
           file: src/frontend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/project5-frontend:latest
-            ${{ secrets.DOCKER_USERNAME }}/project5-frontend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/project5-frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/project5-frontend:${{ github.sha }}
