@@ -65,6 +65,9 @@ kubectl get pods -n $namespace
 Write-Host "`nServiços:" -ForegroundColor Cyan
 kubectl get svc -n $namespace
 
+Write-Host "`nCarregando dashboard:" -ForegroundColor Cyan
+minikube dashboard
+
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "=== DEPLOY FINALIZADO COM SUCESSO!  " -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
