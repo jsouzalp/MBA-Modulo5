@@ -1,0 +1,43 @@
+@Alunos.API_HostAddress = https://localhost:5003
+
+# Endpoints de teste para Alunos API
+
+### Health Check
+GET {{Alunos.API_HostAddress}}/health
+Accept: application/json
+
+### Listar Alunos
+GET {{Alunos.API_HostAddress}}/api/alunos
+Accept: application/json
+
+### Obter Aluno por ID
+GET {{Alunos.API_HostAddress}}/api/alunos/{{$guid}}
+Accept: application/json
+
+### Dashboard do Aluno
+GET {{Alunos.API_HostAddress}}/api/alunos/{{$guid}}/dashboard
+Accept: application/json
+
+### Listar Matrículas
+GET {{Alunos.API_HostAddress}}/api/matriculas
+Accept: application/json
+
+### Obter Matrícula por ID
+GET {{Alunos.API_HostAddress}}/api/matriculas/{{$guid}}
+Accept: application/json
+
+### Listar Certificados
+GET {{Alunos.API_HostAddress}}/api/certificados
+Accept: application/json
+
+### Validar Certificado
+GET {{Alunos.API_HostAddress}}/api/certificados/validar/CERT-{{$guid}}
+Accept: application/json
+
+### Obter Progresso
+GET {{Alunos.API_HostAddress}}/api/progresso/matricula/{{$guid}}
+Accept: application/json
+
+### Listar Histórico
+GET {{Alunos.API_HostAddress}}/api/historico/aluno/{{$guid}}
+Accept: application/json

@@ -1,0 +1,151 @@
+<h3 mat-dialog-title>Editar curso</h3>
+<mat-dialog-content class="dialog-body">
+  <form class="course-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="section">
+      <h4 class="section-title">Informações básicas</h4>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="form-grid">
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Nome do curso</mat-label>
+        <input matInput name="nome" formControlName="nome" type="text" autocomplete="off" maxlength="150"
+          minlength="3" />
+        <mat-error *ngIf="form.get('nome')?.hasError('required')">Informe o nome do curso.</mat-error>
+        <mat-error *ngIf="form.get('nome')?.hasError('minlength') || form.get('nome')?.hasError('maxlength')">O nome
+          precisa ter entre 3 e 150 caracteres.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-3">
+        <mat-label>Valor</mat-label>
+        <span matPrefix style="margin-left: 5px;">R$&nbsp;</span>
+        <input matInput [currencyMask]="{ prefix: '', thousands: '.', decimal: ',' }" formControlName="valor"/>
+        <mat-error *ngIf="form.get('valor')?.hasError('required')">Informe o valor.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-3">
+        <mat-label>Duração (h)</mat-label>
+        <input matInput type="number" formControlName="duracaoHoras" min="1" />
+        <mat-error *ngIf="form.get('duracaoHoras')?.hasError('required')">Informe a duração.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-3">
+        <mat-label>Nível</mat-label>
+        <mat-select formControlName="nivel">
+          <mat-option value="Básico">Básico</mat-option>
+          <mat-option value="Intermediário">Intermediário</mat-option>
+          <mat-option value="Avançado">Avançado</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('nivel')?.hasError('required')">Informe o nível.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-3">
+        <mat-label>Vagas Máximas</mat-label>
+        <input matInput type="number" formControlName="vagasMaximas" min="1" />
+        <mat-error *ngIf="form.get('vagasMaximas')?.hasError('required')">Informe as vagas.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Instrutor</mat-label>
+        <input matInput name="instrutor" formControlName="instrutor" autocomplete="off" />
+        <mat-error *ngIf="form.get('instrutor')?.hasError('required')">Informe o instrutor.</mat-error>
+      </mat-form-field>
+      <div class="col-8 categoria-wrapper">
+        <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoriaId">
+            <mat-option *ngFor="let cat of categorias" [value]="cat.categoryId">{{ cat.description }}</mat-option>
+            <mat-option *ngIf="categorias?.length === 0" disabled>Nenhuma categoria disponível</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('categoriaId')?.hasError('required')">Selecione uma categoria.</mat-error>
+        </mat-form-field>
+
+        <button type="button" mat-icon-button color="primary" aria-label="Adicionar categoria"
+          (click)="openAddCategory()">
+          <mat-icon fontIcon="add"></mat-icon>
+        </button>
+      </div>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+        <mat-label>Imagem URL</mat-label>
+        <input matInput formControlName="imagemUrl" placeholder="https://exemplo.com/imagem.png" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+        <mat-label>Válido até</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="validoAte" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="section col-12">
+        <h4 class="section-title">Detalhes</h4>
+        <mat-divider></mat-divider>
+      </div>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Resumo</mat-label>
+        <textarea matInput rows="2" formControlName="resumo" placeholder="Resumo curto e objetivo"></textarea>
+        <mat-error *ngIf="form.get('resumo')?.hasError('required')">Informe o resumo.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput rows="3" formControlName="descricao"
+          placeholder="Explique os principais tópicos, metodologia e resultados esperados"></textarea>
+        <mat-error *ngIf="form.get('descricao')?.hasError('required')">Informe a descrição.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Objetivos</mat-label>
+        <textarea matInput rows="2" formControlName="objetivos"
+          placeholder="Ex.: Dominar conceitos X, Y e Z"></textarea>
+        <mat-error *ngIf="form.get('objetivos')?.hasError('required')">Informe os objetivos.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Pré-requisitos</mat-label>
+        <textarea matInput rows="2" formControlName="preRequisitos" placeholder="Ex.: Noções de programação"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Público Alvo</mat-label>
+        <textarea matInput rows="2" formControlName="publicoAlvo"
+          placeholder="Ex.: Estudantes, desenvolvedores, gestores"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Metodologia</mat-label>
+        <textarea matInput rows="2" formControlName="metodologia"
+          placeholder="Ex.: Aulas ao vivo, exercícios práticos, projetos"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Recursos</mat-label>
+        <textarea matInput rows="2" formControlName="recursos"
+          placeholder="Ex.: Slides, repositório Git, vídeos"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Avaliação</mat-label>
+        <textarea matInput rows="2" formControlName="avaliacao"
+          placeholder="Ex.: Provas, trabalhos, participação"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+        <mat-label>Bibliografia</mat-label>
+        <textarea matInput rows="2" formControlName="bibliografia"
+          placeholder="Ex.: Títulos e autores recomendados"></textarea>
+      </mat-form-field>
+    </div>
+
+    <mat-dialog-actions align="end">
+      <button type="button" mat-raised-button (click)="cancel()" color="secondary" cdkFocusInitial
+        [disabled]="submitted">Cancelar</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid || submitted">
+        <mat-icon class="rotating" *ngIf="submitted">loop</mat-icon>
+        Salvar
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

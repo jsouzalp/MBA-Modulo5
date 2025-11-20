@@ -1,0 +1,40 @@
+services:
+  pagamentos-api:
+    image: educa/pagamentos-api:latest
+    container_name: plataforma-pagamentos-api
+    build:
+      context: ../../src/backend
+      dockerfile: pagamentos-api/Dockerfile
+    ports:
+      - '5004:5004'
+    expose:
+      - 5004
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:5004;http://+:7004
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=PlataformaEducacional123!
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=PagamentosDB;User Id=sa;Password=PlataformaEducacional123!;TrustServerCertificate=True;
+      - JwtSettings__SecretKey=PlataformaEducacional123!SuperSecretKey2024@#$
+      - JwtSettings__Issuer=PlataformaEducacional
+      - JwtSettings__Audience=PlataformaEducacional
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=admin
+      - RabbitMQ__Password=admin123
+    networks:
+      - plataforma-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8083/health']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+# volumes:
+#   pagamentos-api-volume: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true
+

@@ -1,0 +1,92 @@
+@BFF.API_HostAddress = http://localhost:5000
+
+### Health Check
+GET {{BFF.API_HostAddress}}/health
+
+### Health Check Detalhado
+GET {{BFF.API_HostAddress}}/api/health
+
+### Status da API
+GET {{BFF.API_HostAddress}}/api/health/status
+
+### Swagger OpenAPI
+GET {{BFF.API_HostAddress}}/swagger/v1/swagger.json
+
+### Swagger UI
+GET {{BFF.API_HostAddress}}/swagger
+
+### ===== AUTENTICAÇÃO =====
+
+### Registrar novo usuário (Aluno)
+POST {{BFF.API_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "aluno@teste.com",
+  "password": "MinhaSenh@123",
+  "nome": "João Silva",
+  "dataNascimento": "1995-05-15T00:00:00",
+  "ehAdministrador": false
+}
+
+### Registrar novo usuário (Admin)
+POST {{BFF.API_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@teste.com",
+  "password": "MinhaSenh@123",
+  "nome": "Admin Sistema",
+  "dataNascimento": "1990-01-01T00:00:00",
+  "ehAdministrador": true
+}
+
+### Login
+POST {{BFF.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "aluno@teste.com",
+  "password": "MinhaSenh@123"
+}
+
+### Refresh Token
+POST {{BFF.API_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "seu_refresh_token_aqui"
+}
+
+### ===== ALUNOS =====
+
+### Obter meu perfil (Requer JWT de Aluno)
+GET {{BFF.API_HostAddress}}/api/alunos/meu-perfil
+Authorization: Bearer {token}
+
+### Atualizar meu perfil (Requer JWT de Aluno)
+PUT {{BFF.API_HostAddress}}/api/alunos/meu-perfil
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "telefone": "(11) 99999-9999",
+  "genero": "Masculino",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "cep": "01234-567"
+}
+
+### Obter minhas matrículas (Requer JWT de Aluno)
+GET {{BFF.API_HostAddress}}/api/alunos/minhas-matriculas
+Authorization: Bearer {token}
+
+### ===== DASHBOARD =====
+
+### Dashboard do Aluno (Requer JWT)
+GET {{BFF.API_HostAddress}}/api/dashboard/aluno
+Authorization: Bearer {token}
+
+### Dashboard do Admin (Requer JWT)
+GET {{BFF.API_HostAddress}}/api/dashboard/admin
+Authorization: Bearer {token}

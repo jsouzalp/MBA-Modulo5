@@ -1,0 +1,50 @@
+<h3 mat-dialog-title>Cadastrar aulas para {{ data.cursoNome || 'o curso' }}</h3>
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" (ngSubmit)="save(false)" class="form-grid" autocomplete="off" novalidate>
+    <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+      <mat-label>Nome da aula</mat-label>
+      <input matInput formControlName="nome" />
+      <mat-error *ngIf="form.get('nome')?.hasError('required')">Informe o nome.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput rows="3" formControlName="descricao"></textarea>
+      <mat-error *ngIf="form.get('descricao')?.hasError('required')">Informe a descrição.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+      <mat-label>Tipo Aula</mat-label>
+      <textarea matInput rows="1" formControlName="tipoAula" placeholder="Teorica, PDF"></textarea>
+      <mat-error *ngIf="form.get('tipoAula')?.hasError('required')">Informe o tipo da aula.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+      <mat-label>Número da Aula</mat-label>
+      <input matInput formControlName="numero" type="number" min="1" />
+      <mat-error *ngIf="form.get('numero')?.hasError('required')">Informe o número da aula.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="col-4">
+      <mat-label>Duração (min)</mat-label>
+      <input matInput type="number" min="1" formControlName="duracaoMinutos" />
+      <mat-error *ngIf="form.get('duracaoMinutos')?.hasError('required')">Informe a duração.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="col-12">
+      <mat-label>Vídeo URL</mat-label>
+      <input matInput formControlName="videoUrl" placeholder="https://exemplo.com/video.mp4" />
+      <mat-error *ngIf="form.get('videoUrl')?.hasError('required')">Informe a URL do vídeo.</mat-error>
+    </mat-form-field>
+  </form>
+  <div class="created-list" *ngIf="createdCount > 0">{{ createdCount }} aula(s) adicionada(s).</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="secondary" (click)="close()" [disabled]="saving">Concluir</button>
+  <button mat-raised-button color="primary" (click)="save(true)" [disabled]="saving || form.invalid">
+    <mat-icon class="rotating" *ngIf="saving">loop</mat-icon>
+    Salvar e adicionar outra
+  </button>
+</mat-dialog-actions>
+
+

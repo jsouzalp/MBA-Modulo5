@@ -1,0 +1,107 @@
+<section class="page-header content-header">
+  <div>
+    <h2>Cursos Disponíveis</h2>
+    <p class="subtitle">Explore os cursos e matricule-se para iniciar seus estudos.</p>
+  </div>
+  <div *ngIf="isUserAdmin">
+    <button mat-flat-button color="primary" (click)="openAddDialog()">
+      Adicionar curso
+    </button>
+  </div>
+  <hr style="width:100%" />
+</section>
+<section class="content-container">
+  <ng-container *ngIf="loading; else cursosList">
+    <div class="loading-container">
+      <mat-spinner diameter="50" color="primary"></mat-spinner>
+      <span class="loading-text">Carregando...</span>
+    </div>
+  </ng-container>
+
+  <ng-template #cursosList>
+    <div *ngIf="pagedResult.items.length; else vazio">
+      <div class="courses-grid">
+        <div class="grid-item" *ngFor="let c of pagedResult.items">
+          <mat-card class="course-card">
+            <div class="course-card-header">
+              <ng-container *ngIf="c.imagemUrl; else noImage">
+                <img class="course-thumb"
+                  [src]="c.imagemUrl"
+                  alt="Imagem do curso"
+                  (error)="c.imagemUrl = undefined" />
+              </ng-container>
+              <ng-template #noImage>
+                <div class="course-thumb no-thumb">
+                  <span class="iconify" data-icon="mdi:school" data-width="40" data-height="40"></span>
+                </div>
+              </ng-template>
+              <div class="course-info">
+                <h3 class="course-title">{{ c.nome }}</h3>
+                <span class="course-category" *ngIf="c.nomeCategoria">{{ c.nomeCategoria }}</span>
+                <span class="course-instructor">{{ c.instrutor || 'Instrutor não informado' }}</span>
+              </div>
+            </div>
+            <mat-card-content>
+              <div class="course-meta">
+                <span><mat-icon>schedule</mat-icon> {{ c.duracaoHoras || 0 }}h</span>
+                <span><mat-icon>star</mat-icon> {{ c.nivel || 'Nível não informado' }}</span>
+                <span><mat-icon>group</mat-icon> {{ c.vagasDisponiveis }} vagas</span>
+                <span>{{ c.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+              </div>
+              <div class="course-summary">
+                <strong>Resumo: </strong>
+                <span>{{ c.resumo || 'Sem resumo disponível.' }}</span>
+              </div>
+              <div class="course-summary">
+                <strong>Pré-requisitos: </strong>
+                <span>{{ c.preRequisitos || 'Nenhum' }}</span>
+              </div>
+            </mat-card-content>
+            <mat-card-actions class="course-actions">
+              <button mat-button color="primary" (click)="openAulasDialog(c)">Ver aulas</button>
+              <button mat-flat-button *ngIf="!isUserAdmin" [color]="hasMatricula(c.id) ? 'warn' : 'accent'"
+                [disabled]="hasMatricula(c.id) && pagamentoRealizado(c.id)" matTooltip="{{ hasMatricula(c.id) 
+                          ? pagamentoRealizado(c.id) 
+                            ? 'Você já concluiu o pagamento deste curso.' 
+                            : 'Você já está matriculado, mas o pagamento ainda está pendente.' 
+                          : 'Clique para se matricular neste curso.' }}" matTooltipPosition="above"
+                (click)="matricular(c)">
+                <mat-icon>
+                  {{ hasMatricula(c.id)
+                  ? pagamentoRealizado(c.id)
+                  ? 'check_circle'
+                  : 'hourglass_top'
+                  : 'school' }}
+                </mat-icon>
+                {{ hasMatricula(c.id)
+                ? pagamentoRealizado(c.id)
+                ? 'Matriculado'
+                : 'Pendente pagamento'
+                : 'Matricular-se' }}
+              </button>
+              <button mat-flat-button color="accent" (click)="openEditDialog(c)" *ngIf="isUserAdmin">
+                Editar
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #vazio>
+    <div class="empty-state">
+      <p>Nenhum curso encontrado.</p>
+    </div>
+  </ng-template>
+
+  <mat-paginator class="paginator"
+    [length]="pagedResult.totalResults"
+    [pageSize]="pagedResult.pageSize"
+    [pageIndex]="pagedResult.pageIndex-1"
+    [pageSizeOptions]="[4, 8, 16]"
+    [hidePageSize]="true"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+    aria-label="Paginação de cursos">
+  </mat-paginator>
+</section>

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alunos-api-config
+  namespace: plataforma-educacional
+data:
+  ASPNETCORE_ENVIRONMENT:    "Kubernetes"
+  ExternalApis__ConteudoApi: "http://conteudo-api:8083"

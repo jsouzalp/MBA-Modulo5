@@ -1,0 +1,58 @@
+<Project>
+
+  <!-- 🎯 CONFIGURAÇÕES GLOBAIS ELEGANTES -->
+  <PropertyGroup Label="Global Settings">
+    <!-- Configurações básicas -->
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- 🚀 ANÁLISE DE CÓDIGO MODERNA -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    
+    <!-- 🎨 NULLABLE REFERENCE TYPES - ABORDAGEM ELEGANTE -->
+    <!-- EditorConfig já define csharp_nullable = enable -->
+    <!-- Aqui apenas configuramos o comportamento -->
+    <WarningsAsErrors />
+    <WarningsNotAsErrors />
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    
+    <!-- 🔇 SUPRIMIR WARNINGS ESPECÍFICOS GLOBALMENTE -->
+    <NoWarn>$(NoWarn);1591</NoWarn> <!-- Missing XML comment for publicly visible type or member -->
+    <NoWarn>$(NoWarn);CS8632</NoWarn> <!-- The annotation for nullable reference types should only be used in code within a '#nullable' annotations context -->
+  </PropertyGroup>
+
+  <!-- 📦 PACKAGES GLOBAIS PARA ANÁLISE DE CÓDIGO -->
+  <ItemGroup Label="Global Analyzers">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- 🎯 CONFIGURAÇÕES POR TIPO DE PROJETO -->
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Core' OR 
+                           '$(MSBuildProjectName)' == 'MessageBus' OR
+                           $(MSBuildProjectName.EndsWith('.Domain')) OR
+                           $(MSBuildProjectName.EndsWith('.Application')) OR
+                           $(MSBuildProjectName.EndsWith('.Infrastructure'))">
+    <!-- ✨ PROJETOS DE DOMÍNIO E INFRAESTRUTURA -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.API'))">
+    <!-- 🌐 PROJETOS DE API -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests')) OR 
+                           $(MSBuildProjectName.EndsWith('.UnitTests')) OR
+                           $(MSBuildProjectName.EndsWith('.IntegrationTests'))">
+    <!-- 🧪 PROJETOS DE TESTE -->
+    <IsTestProject>true</IsTestProject>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>

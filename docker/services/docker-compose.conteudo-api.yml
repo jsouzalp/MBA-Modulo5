@@ -1,0 +1,41 @@
+services:
+  conteudo-api:
+    image: educa/conteudo-api:latest
+    container_name: plataforma-conteudo-api
+    build:
+      context: ../../src/backend
+      dockerfile: conteudo-api/Dockerfile
+    ports:
+      - "5002:5002"
+      - "7002:7002"
+    expose:
+      - 5002
+      - 7002
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:5002;http://+:7002
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=PlataformaEducacional123!
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ConteudoDB;User Id=sa;Password=PlataformaEducacional123!;TrustServerCertificate=True;
+      - JwtSettings__SecretKey=PlataformaEducacional123!SuperSecretKey2024@#$
+      - JwtSettings__Issuer=PlataformaEducacional
+      - JwtSettings__Audience=PlataformaEducacional
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Port=5672
+      - RabbitMQ__Username=admin
+      - RabbitMQ__Password=admin123
+    networks:
+      - plataforma-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8081/health']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+# volumes:
+#   pagamentos-api-volume: 
+
+networks:
+  plataforma-network:
+    name: "plataforma-network"
+    external: true
