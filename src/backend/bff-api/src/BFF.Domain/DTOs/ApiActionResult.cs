@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BFF.Domain.DTOs;
 
+// Apenas para forçar o git actions a rodar o build e deploy no docker quando chegar na MAIN
 [ExcludeFromCodeCoverage]
 public class ApiActionResult<T>
 {
