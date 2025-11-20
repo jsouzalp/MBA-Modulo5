@@ -1,5 +1,6 @@
 using Core.DomainObjects;
 
+// Apenas para forçar o git actions a rodar o build e deploy no docker quando chegar na MAIN
 namespace Pagamentos.Domain.Entities
 {
     public class Pagamento : Entidade, IRaizAgregacao

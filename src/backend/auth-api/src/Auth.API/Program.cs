@@ -14,13 +14,6 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
-        // 2nd test github actions
-        // 3rd test github actions
-        // 3rd test github actions
-        // 3rd test github actions
-
-
-
         var builder = WebApplication.CreateBuilder(args);
 
         //builder.WebHost.ConfigureKestrel(options =>

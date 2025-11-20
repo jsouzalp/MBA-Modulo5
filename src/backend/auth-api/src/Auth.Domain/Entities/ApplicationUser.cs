@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Auth.Domain.Entities;
 
+// Apenas para forçar o git actions a rodar o build e deploy no docker quando chegar na MAIN
 public class ApplicationUser : IdentityUser
 {
     [Required]
