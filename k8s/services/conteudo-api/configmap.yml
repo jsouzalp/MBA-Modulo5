@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conteudo-api-config
+  namespace: plataforma-educacional
+data:
+  ASPNETCORE_ENVIRONMENT: "Kubernetes"

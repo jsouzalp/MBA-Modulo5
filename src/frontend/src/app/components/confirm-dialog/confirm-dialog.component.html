@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="dialog-title margin-sm-top">
+  <mat-icon>help_outline</mat-icon>
+  {{ title }}
+</h1>
+
+<div mat-dialog-content class="dialog-content margin-lg-top">
+  <p><span [innerHtml]="message"></span></p>
+</div>
+
+<div mat-dialog-actions
+  class="dialog-actions margin-md-bottom d-flex justify-content-center margin-xl-left margin-xl-right">
+  <button mat-stroked-button color="warn" (click)="onDismiss()">
+    <mat-icon>close</mat-icon> Não
+  </button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">
+    <mat-icon>check</mat-icon> Sim
+  </button>
+</div>

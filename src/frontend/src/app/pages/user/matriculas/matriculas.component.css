@@ -1,0 +1,50 @@
+.concluido-badge {
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.em-andamento {
+  color: #ff9800;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.certificado-emitido {
+  color: #2196f3;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.curso-pendente {
+  color: #9e9e9e;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .concluido-badge,
+  .em-andamento,
+  .certificado-emitido,
+  .curso-pendente {
+    font-size: 11px;
+  }
+}

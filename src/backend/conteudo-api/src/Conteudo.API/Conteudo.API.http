@@ -1,0 +1,6 @@
+@Conteudo.API_HostAddress = http://localhost:5062
+
+GET {{Conteudo.API_HostAddress}}/api
+Accept: application/json
+
+###

@@ -1,0 +1,102 @@
+@Auth.API_HostAddress = http://localhost:5001
+
+### Health Check
+GET {{Auth.API_HostAddress}}/health
+
+### Swagger OpenAPI
+GET {{Auth.API_HostAddress}}/swagger/v1/swagger.json
+
+### Swagger UI
+GET {{Auth.API_HostAddress}}/swagger
+
+### ===== AUTENTICAÇÃO =====
+
+### Registrar novo usuário (Aluno)
+POST {{Auth.API_HostAddress}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@teste.com",
+  "senha": "MinhaSenh@123",
+  "dataNascimento": "1995-05-15T00:00:00",
+  "ehAdministrador": false
+}
+
+### Registrar novo usuário (Admin)
+POST {{Auth.API_HostAddress}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nome": "Maria Admin",
+  "email": "admin@teste.com",
+  "senha": "AdminSenh@123",
+  "dataNascimento": "1990-03-20T00:00:00",
+  "ehAdministrador": true
+}
+
+### Login com usuário comum
+POST {{Auth.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@teste.com",
+  "senha": "MinhaSenh@123"
+}
+
+### Login com admin
+POST {{Auth.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@teste.com",
+  "senha": "AdminSenh@123"
+}
+
+### Login com usuário padrão do sistema
+POST {{Auth.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@auth.api",
+  "senha": "Teste@123"
+}
+
+### Renovar token (substitua o refreshToken pelo valor recebido no login)
+POST {{Auth.API_HostAddress}}/api/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "SEU_REFRESH_TOKEN_AQUI"
+}
+
+### ===== TESTES DE VALIDAÇÃO =====
+
+### Registro com dados inválidos
+POST {{Auth.API_HostAddress}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nome": "",
+  "email": "email-invalido",
+  "senha": "123",
+  "dataNascimento": "1995-05-15T00:00:00",
+  "ehAdministrador": false
+}
+
+### Login com credenciais inválidas
+POST {{Auth.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@inexistente.com",
+  "senha": "SenhaErrada123"
+}
+
+### Refresh token inválido
+POST {{Auth.API_HostAddress}}/api/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "token_invalido_aqui"
+}

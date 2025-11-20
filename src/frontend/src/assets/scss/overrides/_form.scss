@@ -1,0 +1,28 @@
+// for radius
+
+mat-label {
+  color: $dark-200;
+}
+
+.mdc-form-field > label {
+  font-size: 14px;
+}
+
+.hide-hint {
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
+
+/* Força campos a ocuparem toda a coluna dos grids locais */
+.mat-mdc-form-field,
+.mat-mdc-text-field-wrapper,
+.mdc-text-field,
+.mat-mdc-form-field-flex,
+.mat-mdc-form-field-infix,
+input[matInput],
+.mat-mdc-select-trigger,
+.mat-mdc-select-value {
+  width: 100% !important;
+  min-width: 100% !important;
+}
