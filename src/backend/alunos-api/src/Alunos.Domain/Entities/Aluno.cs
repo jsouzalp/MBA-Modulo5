@@ -5,6 +5,7 @@ using Plataforma.Educacao.Core.Exceptions;
 
 namespace Alunos.Domain.Entities;
 
+// Apenas para forçar o git actions a rodar o build e deploy no docker quando chegar na MAIN
 public class Aluno : Entidade, IRaizAgregacao
 {
     public Guid CodigoUsuarioAutenticacao { get; }
