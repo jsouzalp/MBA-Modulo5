@@ -1,4 +1,4 @@
-name: Auth API - CI/CD
+name: Auth-API - CI/CD
 
 on:
   pull_request:
@@ -33,16 +33,16 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore de Auth API
+      - name: Restore do microsserviço Auth-API
         run: dotnet restore src/backend/auth-api/Auth.API.sln
 
-      - name: Build de Auth API
+      - name: Build do microsserviço Auth-API
         run: dotnet build src/backend/auth-api/Auth.API.sln --configuration Release --no-restore
 
-      - name: Execução de Testes Unitários Auth API
+      - name: Execução de Testes Unitários Auth-API
         run: dotnet test src/backend/tests/Auth.UnitTests/Auth.UnitTests.csproj --configuration Release
 
-      - name: Execução de Testes Integrados Auth API
+      - name: Execução de Testes Integrados Auth-API
         run: dotnet test src/backend/tests/Auth.IntegrationTests/Auth.IntegrationTests.csproj --configuration Release
 
   # ===============================================
@@ -61,10 +61,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore da Full Solution Principal
+      - name: Restore Full da Solution MBA.Modulo5
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
-      - name: Execução de Testes Globais
+      - name: Execução de Testes do eco-sistema
         run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release 
 
   # ===============================================
@@ -79,13 +79,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Credenciais Docker 
+      - name: Credenciais do repositório Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build e Push do Docker Auth-API
+      - name: Criação da imagem e Push no repositório do Docker Hub do microsserviço Auth-API
         uses: docker/build-push-action@v5
         with:
           context: src/backend
