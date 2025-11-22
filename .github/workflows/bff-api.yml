@@ -79,6 +79,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Identificando a Versão Deste Build
+        id: get_version
+        run: |
+          VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" src/backend/bff-api/src/BFF.API/BFF.API.csproj)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT  
+
       - name: Credenciais do repositório Docker Hub
         uses: docker/login-action@v3
         with:
@@ -93,4 +99,5 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/project5-bff-api:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/project5-bff-api:${{ steps.get_version.outputs.version }}
             ${{ secrets.DOCKERHUB_USERNAME }}/project5-bff-api:${{ github.sha }}
