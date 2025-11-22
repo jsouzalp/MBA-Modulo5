@@ -65,7 +65,7 @@ jobs:
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes Globais
-        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release --no-build
+        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release 
 
   # ===============================================
   # DEPLOY (DOCKER BUILD & PUSH)
