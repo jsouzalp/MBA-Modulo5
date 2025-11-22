@@ -1,4 +1,4 @@
-name: Pagamentos API - CI/CD
+name: Pagamentos-API - CI/CD
 
 on:
   pull_request:
@@ -15,35 +15,77 @@ env:
   DOTNET_VERSION: '9.0.x'
 
 jobs:
-  build-test:
+
+  # ===============================================
+  # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
+  # Rodado em:
+  #   - PR → DEV, PR, main
+  #   - Push → DEV, PR
+  # ===============================================
+  service-tests:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET
+
+      - name: Configuração .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Restore
-        run: dotnet restore src/backend/pagamentos-api/Pagamentos.API.sln
-      - name: Build
-        run: dotnet build src/backend/pagamentos-api/Pagamentos.API.sln --configuration Release --no-restore
-      - name: Test
-        run: dotnet test src/backend/pagamentos-api/Pagamentos.API.sln --no-build
 
-  docker-build-push:
-    needs: build-test
+      - name: Restore do microsserviço Pagamentos-API
+        run: dotnet restore src/backend/pagamentos-api/Pagamentos.API.sln
+
+      - name: Build do microsserviço Pagamentos-API
+        run: dotnet build src/backend/pagamentos-api/Pagamentos.API.sln --configuration Release --no-restore
+
+      - name: Execução de Testes Unitários Pagamentos-API
+        run: dotnet test src/backend/tests/Pagamentos.UnitTests/Pagamentos.UnitTests.csproj --configuration Release
+
+      - name: Execução de Testes Integrados Pagamentos-API
+        run: dotnet test src/backend/tests/Pagamentos.IntegrationTests/Pagamentos.IntegrationTests.csproj --configuration Release
+
+  # ===============================================
+  # TESTES COMPLETOS (APENAS MAIN = CI completo)
+  # ===============================================
+  full-tests:
+    needs: service-tests
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
-      - name: Docker Login
+
+      - name: Configuração .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore Full da Solution MBA.Modulo5
+        run: dotnet restore src/backend/MBA.Modulo5.sln
+
+      - name: Execução de Testes do eco-sistema
+        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release 
+
+  # ===============================================
+  # DEPLOY (DOCKER BUILD & PUSH)
+  # Somente MAIN
+  # ===============================================
+  docker-build-push:
+    needs: full-tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Credenciais do repositório Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Docker Build and Push
+      - name: Criação da imagem e Push no repositório do Docker Hub do microsserviço Pagamentos-API
         uses: docker/build-push-action@v5
         with:
           context: src/backend
