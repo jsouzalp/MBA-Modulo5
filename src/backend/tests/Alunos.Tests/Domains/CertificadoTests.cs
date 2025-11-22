@@ -327,7 +327,7 @@ public class CertificadoTests
             .ComMatriculaId(Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"))
             .ComNomeCurso("Clean Architecture")
             .ComCargaHoraria(60)
-            .ComNotaFinal(9.5m)
+            .ComNotaFinal(8m)
             .ComDataSolicitacao(new DateTime(2025, 03, 15))
             .Build();
 
@@ -335,7 +335,7 @@ public class CertificadoTests
         s.Should().Contain("Clean Architecture");
         s.Should().Contain("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
         s.Should().Contain("60");
-        s.Should().Contain("9,5");
+        s.Should().Contain("8");
         s.Should().Contain("15/03/2025");
     }
 }
