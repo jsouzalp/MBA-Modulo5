@@ -12,7 +12,7 @@ on:
       - 'src/backend/auth-api/**'
 
 env:
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: '9.0.x'
 
 jobs:
 
@@ -39,9 +39,11 @@ jobs:
       - name: Build de Auth API
         run: dotnet build src/backend/auth-api/Auth.API.sln --configuration Release --no-restore
 
-      - name: Execução de testes Auth API (LOCAL)
-        run: |
-          find src/backend/tests -name "Auth*.Tests.csproj" -print0 | xargs -0 -I {} dotnet test {} --no-build --configuration Release
+      - name: Execução de Testes Unitários Auth API
+        run: dotnet test src/backend/tests/Auth.UnitTests/Auth.UnitTests.csproj --configuration Release
+
+      - name: Execução de Testes Integrados Auth API
+        run: dotnet test src/backend/tests/Auth.IntegrationTests/Auth.IntegrationTests.csproj --configuration Release
 
   # ===============================================
   # TESTES COMPLETOS (APENAS MAIN = CI completo)
