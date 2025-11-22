@@ -19,10 +19,12 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+app.UseSwaggerConfig(apiVersionDescriptionProvider);
 if (app.Environment.IsDevelopment())
 {
-    var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-    app.UseSwaggerConfig(apiVersionDescriptionProvider);
+    //var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+    //app.UseSwaggerConfig(apiVersionDescriptionProvider);
     app.UseCors("Development");
 }
 else
