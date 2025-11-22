@@ -40,10 +40,10 @@ jobs:
         run: dotnet build src/backend/pagamentos-api/Pagamentos.API.sln --configuration Release --no-restore
 
       - name: Execução de Testes Unitários Pagamentos-API
-        run: dotnet test src/backend/tests/Pagamentos.UnitTests/Pagamentos.UnitTests.csproj --configuration Release
-
+        run: dotnet test src/backend/tests/Pagamentos.UnitTests/Pagamentos.UnitTests/Pagamentos.UnitTests.csproj --configuration Release
+        
       - name: Execução de Testes Integrados Pagamentos-API
-        run: dotnet test src/backend/tests/Pagamentos.IntegrationTests/Pagamentos.IntegrationTests.csproj --configuration Release
+        run: dotnet test src/backend/tests/Pagamentos.IntegrationTests/Pagamentos.IntegrationTests/Pagamentos.IntegrationTests.csproj --configuration Release
 
   # ===============================================
   # TESTES COMPLETOS (APENAS MAIN = CI completo)

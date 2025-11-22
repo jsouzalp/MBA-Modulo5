@@ -43,7 +43,7 @@ jobs:
         run: dotnet test src/backend/tests/Conteudo.UnitTests/Conteudo.UnitTests.csproj --configuration Release
 
       - name: Execução de Testes Integrados Conteudo-API
-        run: dotnet test src/backend/tests/Conteudo.IntegrationTests/Conteudo.UnitTests.csproj --configuration Release
+        run: dotnet test src/backend/tests/Conteudo.IntegrationTests/Conteudo.IntegrationTests.csproj --configuration Release
 
   # ===============================================
   # TESTES COMPLETOS (APENAS MAIN = CI completo)
