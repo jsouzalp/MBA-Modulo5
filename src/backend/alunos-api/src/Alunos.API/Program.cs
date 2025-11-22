@@ -13,7 +13,8 @@ public class Program
         builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
         var app = builder.Build();
-        if (app.Environment.IsDevelopment())
+
+        //if (app.Environment.IsDevelopment())
         {
             app.UseSwaggerConfiguration();
         }

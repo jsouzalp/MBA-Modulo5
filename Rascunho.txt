@@ -16,15 +16,6 @@ C:\Projetos\Proth\MBA\Project5\src\frontend (que é um projeto angular)
 
 
 
-bff-api → containerPort: 5000, Service expõe 8080
-auth-api → containerPort: 5001, Service expõe 8081
-conteudo-api → containerPort: 5002, Service expõe 8082
-alunos-api → containerPort: 5003, Service expõe 8083
-pagamentos-api → containerPort: 5004, Service expõe 8084
-frontend → containerPort: 4200, Service expõe 80 (NodePort 30080)
-
-
-
 Instalar Minikube
 - choco install minikube
 - minikube version
@@ -77,122 +68,10 @@ Se tiver problemas no deploy do minikube...
   },
 
 
-Token Docker HUB
+Token Docker HUB github-actions-project5-mba-devexpert
 Run: docker login -u jsouzalp
-Token: dckr_pat_mzKcpS11NB-bnaay46NTsCMQ2rA
+Token: dckr_pat_B-eZxN5y37DwEdkfMh6kjpFIBCI
 
-
-Soluções no C#
-C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\BFF.API.sln
-C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\Auth.API.sln
-C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\Conteudo.API.sln
-C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\Alunos.API.sln
-C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\Pagamentos.API.sln
-
-Projetos no C#
-C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\src\BFF.API\BFF.API.csproj
-C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\src\Auth.API\Auth.API.csproj
-C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\src\Conteudo.API\Conteudo.API.csproj
-C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\src\Alunos.API\Alunos.API.csproj
-C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\src\Pagamentos.API\Pagamentos.API.csproj
-
-Respectivos Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\backend\bff-api\Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\backend\auth-api\Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\backend\conteudo-api\Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\backend\alunos-api\Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\backend\pagamentos-api\Dockerfile
-C:\Projetos\Proth\MBA\Project5\src\frontend\Dockerfile [Frontend] 
-
-Docker Compose de Infra
-C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.sqlserver.yml
-C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.redis.yml
-C:\Projetos\Proth\MBA\Project5\docker\infra\docker-compose.rabbitmq.yml
-
-Docker Compose de Services
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.bff-api.yml
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.auth-api.yml
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.conteudo-api.yml
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.alunos-api.yml
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.pagamentos-api.yml
-C:\Projetos\Proth\MBA\Project5\docker\services\docker-compose.frontend.yml [Frontend]
-
-Não sei se será preciso, mas este é o meu script .ps1 que faz o processamento dos dockerfiles/docker compose
-C:\Projetos\Proth\MBA\Project5\scripts\start-all.ps1
-
-
-
-
-
-C:\Projetos\Proth\MBA\Project5\
-│
-├── docker/
-│	├── infra/
-│	│   ├── docker-compose.sqlserver.yml
-│	│   ├── docker-compose.rabbitmq.yml
-│	│   ├── docker-compose.redis.yml
-│	│
-│	├── services/
-│	│   ├── docker-compose.auth-api.yml
-│	│   ├── docker-compose.alunos-api.yml
-│	│   ├── docker-compose.conteudo-api.yml
-│	│   ├── docker-compose.pagamentos-api.yml
-│	│   ├── docker-compose.bff-api.yml
-│	│   ├── docker-compose.frontend.yml
-│	│
-│	├── docker-compose.full.yml
-│	└── env/
-│		├── infra.sqlserver.env
-│		├── infra.rabbitmq.env
-│		├── infra.redis.env
-│		├── auth-api.env
-│		├── conteudo-api.env
-│		├── alunos-api.env
-│		├── pagamentos-api.env
-│		├── bff-api.env
-│		└── frontend.env
-│
-├── src\
-│   ├── backend\
-│   │   ├── alunos-api\
-│   │   ├── auth-api\
-│   │   ├── bff-api\
-│   │   ├── conteudo-api\
-│   │   └── pagamentos-api\
-│   │
-│   └── frontend\
-│       └── (projeto Angular)
-│
-└── start-all.ps1
-
-
-k8s/
-├── infra/
-│   ├── sqlserver/
-│   │   ├── deployment.yml
-│   │   ├── service.yml
-│   │   └── secret.yml
-│   ├── rabbitmq/
-│   │   ├── deployment.yml
-│   │   ├── service.yml
-│   │   └── configmap.yml
-│   └── redis/
-│       ├── deployment.yml
-│       ├── service.yml
-│
-├── services/
-│   ├── auth-api/
-│   │   ├── deployment.yml
-│   │   ├── service.yml
-│   │   ├── configmap.yml
-│   │   └── secret.yml
-│   ├── conteudo-api/
-│   ├── alunos-api/
-│   ├── pagamentos-api/
-│   ├── bff-api/
-│   └── frontend/
-│
-└── namespace.yml
 
 
 
