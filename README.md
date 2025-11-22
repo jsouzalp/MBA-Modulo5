@@ -223,8 +223,8 @@ Na pasta .github/ estão os arquivos de configuração de build e testes.
 ## 🐳 Imagens no Docker Hub
 As imagens Docker utilizam três tipos de tags:
 - latest
-- <versão-semântica> (extraída do csproj)
-- <commit-sha> (para rastreabilidade)
+- "<versão-semântica>" (extraída do csproj)
+- "<commit-sha>" (para rastreabilidade)
 
 Os repositórios criados estão disponíveis nos links abaixo
 - https://hub.docker.com/r/jsouzalp/project5-auth-api
