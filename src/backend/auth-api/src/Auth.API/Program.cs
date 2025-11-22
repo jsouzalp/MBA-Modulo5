@@ -14,6 +14,10 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
+        // GIT Force rebuild
+
+
+
         var builder = WebApplication.CreateBuilder(args);
 
         //builder.WebHost.ConfigureKestrel(options =>
