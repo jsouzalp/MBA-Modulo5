@@ -1,4 +1,4 @@
-﻿using Core.Messages;
+using Core.Messages;
 using Core.Messages.Integration;
 using EasyNetQ;
 

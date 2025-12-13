@@ -1,4 +1,4 @@
-﻿namespace Core.DomainValidations;
+namespace Core.DomainValidations;
 
 public static class ValidacaoData
 {

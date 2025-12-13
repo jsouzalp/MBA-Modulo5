@@ -1,4 +1,4 @@
-﻿namespace Plataforma.Educacao.Core.Exceptions;
+namespace Plataforma.Educacao.Core.Exceptions;
 
 public class DomainException : Exception
 {

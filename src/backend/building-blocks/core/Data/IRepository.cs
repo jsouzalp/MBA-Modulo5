@@ -1,4 +1,4 @@
-﻿using Core.DomainObjects;
+using Core.DomainObjects;
 
 namespace Core.Data;
 
