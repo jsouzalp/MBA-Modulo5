@@ -3,6 +3,7 @@ using Pagamentos.API.Configuration;
 using Pagamentos.API.Configuration.Middleware;
 
 // GIT Force rebuild
+// GIT Force rebuild
 
 var builder = WebApplication.CreateBuilder(args);
 

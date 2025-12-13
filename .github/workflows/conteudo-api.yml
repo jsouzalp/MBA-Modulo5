@@ -2,13 +2,13 @@ name: Conteudo-API - CI/CD
 
 on:
   pull_request:
-    branches: [ DEV, PR, main ]
+    branches: [ DEV, main ]
     paths:
       - 'src/backend/conteudo-api/**'
       - 'src/backend/building-blocks/**'
 
   push:
-    branches: [ DEV, PR, main ]
+    branches: [ DEV, main ]
     paths:
       - 'src/backend/conteudo-api/**'
       - 'src/backend/building-blocks/**'
@@ -34,7 +34,7 @@ jobs:
         uses: super-linter/super-linter@v8.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref || 'main' }}
           RUN_LOCAL: false
           VALIDATE_BASH: true
           VALIDATE_ALL_CODEBASE: false
@@ -46,8 +46,8 @@ jobs:
   # ===============================================
   # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
   # Rodado em:
-  #   - PR → DEV, PR, main
-  #   - Push → DEV, PR
+  #   - PR → DEV, main
+  #   - Push → DEV
   # ===============================================
   api-tests:
     needs: lint-validation

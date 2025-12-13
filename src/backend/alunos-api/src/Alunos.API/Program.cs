@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 public class Program
 {
     // GIT Force rebuild
+    // GIT Force rebuild
 
     private static void Main(string[] args)
     {
