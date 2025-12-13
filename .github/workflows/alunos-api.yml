@@ -32,11 +32,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Fetch da branch base do pull-request
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin ${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+          git branch -a
+
       - name: Execução antecipada do Super-Linter para aferir qualidade de código
         uses: super-linter/super-linter@v8.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref || 'main' }}
+          DEFAULT_BRANCH: ${{ github.base_ref }}
           RUN_LOCAL: false
           VALIDATE_BASH: true
           VALIDATE_ALL_CODEBASE: false
