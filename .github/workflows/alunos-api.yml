@@ -21,15 +21,12 @@ env:
 
 jobs:
   # ===============================================
-  # BUILD E TESTES DO MICROSSERVIÇO
-  # Rodado em:
-  #   - PR → DEV, PR, main
-  #   - Push → DEV, PR
+  # Lint / Qualidade de código / Estruturas
   # ===============================================
-  api-tests:
+  lint-validation:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:    
       - name: Realizando checkout
         uses: actions/checkout@v4
 
@@ -45,6 +42,20 @@ jobs:
           VALIDATE_DOCKERFILE: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_CSHARP: true
+
+  # ===============================================
+  # BUILD E TESTES DO MICROSSERVIÇO
+  # Rodado em:
+  #   - PR → DEV, PR, main
+  #   - Push → DEV, PR
+  # ===============================================
+  api-tests:
+    needs: lint-validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Realizando checkout
+        uses: actions/checkout@v4
 
       - name: Configuração .NET
         uses: actions/setup-dotnet@v4
