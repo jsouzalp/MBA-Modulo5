@@ -6,6 +6,7 @@ using Conteudo.UnitTests.Repositories.Infra;
 using Microsoft.Data.Sqlite;
 
 namespace Conteudo.UnitTests.Repositories;
+
 public class MaterialRepositoryTests : IDisposable
 {
     private readonly SqliteConnection _conn;

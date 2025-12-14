@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarMaterial;
+
 public class AtualizarMaterialCommandHandlerTests
 {
     private readonly Mock<IMaterialRepository> _materiais = new();

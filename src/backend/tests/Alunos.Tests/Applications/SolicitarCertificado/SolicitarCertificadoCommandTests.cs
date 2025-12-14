@@ -2,6 +2,7 @@ using Alunos.Application.Commands.SolicitarCertificado;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.SolicitarCertificado;
+
 public class SolicitarCertificadoCommandTests
 {
     [Fact]

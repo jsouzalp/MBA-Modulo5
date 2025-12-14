@@ -1,6 +1,7 @@
 using Plataforma.Educacao.Core.Exceptions;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class MaterialTests
 {
     // ---------- Happy path ----------

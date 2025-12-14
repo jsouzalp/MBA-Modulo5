@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.AtualizarMaterial;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarMaterial;
+
 public class AtualizarMaterialCommandValidatorTests
 {
     [Fact]

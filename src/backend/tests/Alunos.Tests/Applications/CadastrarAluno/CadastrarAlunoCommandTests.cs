@@ -2,6 +2,7 @@ using Alunos.Application.Commands.CadastrarAluno;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.CadastrarAluno;
+
 public class CadastrarAlunoCommandTests
 {
     [Fact]

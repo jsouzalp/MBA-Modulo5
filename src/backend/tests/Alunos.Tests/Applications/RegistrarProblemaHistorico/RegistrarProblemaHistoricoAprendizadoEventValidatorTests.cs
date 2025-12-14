@@ -2,6 +2,7 @@ using Alunos.Application.Events.RegistrarProblemaHistorico;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.RegistrarProblemaHistorico;
+
 public class RegistrarProblemaHistoricoAprendizadoEventValidatorTests
 {
     [Fact]

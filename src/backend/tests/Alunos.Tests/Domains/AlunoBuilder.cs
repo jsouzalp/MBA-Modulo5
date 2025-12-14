@@ -1,6 +1,7 @@
 using Alunos.Domain.Entities;
 
 namespace Alunos.Tests.Domains;
+
 public class AlunoBuilder
 {
     private Guid _codigoAuth = Guid.NewGuid();

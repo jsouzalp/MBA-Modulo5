@@ -1,6 +1,7 @@
 using Alunos.Domain.Entities;
 
 namespace Alunos.Tests.Domains;
+
 public class MatriculaCursoBuilder
 {
     private Guid _alunoId = Guid.NewGuid();

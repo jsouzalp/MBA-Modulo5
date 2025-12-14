@@ -9,6 +9,7 @@ using Moq;
 using Core.Messages;
 
 namespace Alunos.Tests.Applications.ConcluirCurso;
+
 public class ConcluirCursoCommandHandlerTests
 {
     private readonly Mock<IAlunoRepository> _repo = new();

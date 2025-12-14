@@ -8,6 +8,7 @@ using Alunos.Application.Commands.AtualizarPagamento;
 using Core.Messages;
 
 namespace Alunos.Tests.Applications.AtualizarPagamento;
+
 public class AtualizarPagamentoMatriculaCommandHandlerTests
 {
     private readonly Mock<IAlunoRepository> _alunos = new();

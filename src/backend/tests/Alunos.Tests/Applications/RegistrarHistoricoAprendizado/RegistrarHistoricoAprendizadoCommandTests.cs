@@ -2,6 +2,7 @@ using Alunos.Application.Commands.RegistrarHistoricoAprendizado;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.RegistrarHistoricoAprendizado;
+
 public class RegistrarHistoricoAprendizadoCommandTests
 {
     [Fact]

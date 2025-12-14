@@ -4,6 +4,7 @@ using Core.Messages;
 using Moq;
 
 namespace Alunos.Tests.Applications.RegistrarProblemaHistorico;
+
 public class RegistrarProblemaHistoricoAprendizadoEventHandlerTests
 {
     [Fact]

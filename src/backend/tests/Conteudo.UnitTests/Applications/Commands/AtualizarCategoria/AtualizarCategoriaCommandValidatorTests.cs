@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.AtualizarCategoria;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarCategoria;
+
 public class AtualizarCategoriaCommandValidatorTests
 {
     [Fact]

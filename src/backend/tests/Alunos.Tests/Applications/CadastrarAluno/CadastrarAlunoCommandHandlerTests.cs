@@ -8,6 +8,7 @@ using Moq;
 using Core.Messages;
 
 namespace Alunos.Tests.Applications.CadastrarAluno;
+
 public class CadastrarAlunoCommandHandlerTests
 {
     private readonly Mock<IAlunoRepository> _repo = new();

@@ -2,6 +2,7 @@ using Conteudo.Domain.Entities;
 using Conteudo.Domain.ValueObjects;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class CursoBuilder
 {
     private string _nome = "Arquitetura Limpa e DDD";

@@ -1,6 +1,7 @@
 using Conteudo.Domain.Entities;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class AulaBuilder
 {
     private Guid _cursoId = Guid.NewGuid();

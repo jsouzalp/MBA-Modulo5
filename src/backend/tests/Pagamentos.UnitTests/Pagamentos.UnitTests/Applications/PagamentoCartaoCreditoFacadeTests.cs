@@ -4,6 +4,7 @@ using Pagamentos.Domain.Enum;
 using Pagamentos.Domain.Models;
 
 namespace Pagamentos.UnitTests.Applications;
+
 public class PagamentoCartaoCreditoFacadeTests
 {
     [Fact]

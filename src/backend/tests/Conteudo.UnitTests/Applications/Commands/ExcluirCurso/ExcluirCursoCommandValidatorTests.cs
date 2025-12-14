@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.ExcluirCurso;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirCurso;
+
 public class ExcluirCursoCommandValidatorTests
 {
     [Fact]
