@@ -33,7 +33,7 @@ O foco do Projeto 5 é **infraestrutura e DevOps**, incluindo:
 - Publicação das imagens no Docker Hub  
 - Pipelines CI/CD independentes por microsserviço  
 - Testes automatizados  
-- Padronização de branches (DEV → PR → main)  
+- Padronização de branches (Feature XPTO → DEV → main)  
 - Execução local via Docker Compose  
 - Scripts PowerShell de automação  
 

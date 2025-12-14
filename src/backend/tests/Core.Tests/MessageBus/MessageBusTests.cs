@@ -3,7 +3,7 @@ using global::MessageBus;
 
 namespace Core.Tests.MessageBus;
 
-public class MessageBusTests 
+public class MessageBusTests
 {
     private class TestIntegrationEvent : IntegrationEvent
     {

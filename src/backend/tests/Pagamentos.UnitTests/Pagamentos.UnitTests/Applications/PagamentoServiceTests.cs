@@ -53,7 +53,7 @@ public class PagamentoServiceTests
         _facade.Setup(f => f.RealizarPagamento(It.IsAny<CobrancaCurso>(), It.IsAny<Domain.Entities.Pagamento>()))
                .Returns(transacao);
 
-        _repo.Setup(r => r.Adicionar(It.IsAny<  Domain.Entities.Pagamento>()))
+        _repo.Setup(r => r.Adicionar(It.IsAny<Domain.Entities.Pagamento>()))
              .Callback<Domain.Entities.Pagamento>(p => pagamentoAdicionado = p);
         _repo.Setup(r => r.AdicionarTransacao(It.IsAny<Transacao>()))
              .Callback<Transacao>(t => transacaoAdicionada = t);

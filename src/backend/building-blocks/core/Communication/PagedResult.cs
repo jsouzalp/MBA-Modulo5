@@ -1,4 +1,4 @@
-﻿namespace Core.Communication;
+namespace Core.Communication;
 
 public class PagedResult<T> where T : class
 {

@@ -41,7 +41,7 @@ public class AlunoRepository(AlunoDbContext context) : IAlunoRepository
 
     public async Task<Aluno> ObterPorEmailAsync(string email, bool noTracked = true)
     {
-        var query = context.Alunos.AsQueryable(); 
+        var query = context.Alunos.AsQueryable();
 
         if (noTracked)
         {

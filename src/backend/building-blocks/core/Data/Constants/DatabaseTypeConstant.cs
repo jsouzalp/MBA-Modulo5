@@ -1,4 +1,4 @@
-﻿namespace Core.Data.Constants;
+namespace Core.Data.Constants;
 
 public static class DatabaseTypeConstant
 {
