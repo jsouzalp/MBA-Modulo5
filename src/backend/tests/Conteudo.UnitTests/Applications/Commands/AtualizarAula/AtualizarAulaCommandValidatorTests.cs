@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.AtualizarAula;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarAula;
+
 public class AtualizarAulaCommandValidatorTests
 {
     [Fact]

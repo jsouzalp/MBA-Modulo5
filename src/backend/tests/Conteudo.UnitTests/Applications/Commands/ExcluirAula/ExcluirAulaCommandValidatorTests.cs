@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.ExcluirAula;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirAula;
+
 public class ExcluirAulaCommandValidatorTests
 {
     [Fact]

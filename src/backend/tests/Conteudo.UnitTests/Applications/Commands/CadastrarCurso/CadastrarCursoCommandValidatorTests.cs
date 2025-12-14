@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.CadastrarCurso;
 
 namespace Conteudo.UnitTests.Applications.Commands.CadastrarCurso;
+
 public class CadastrarCursoCommandValidatorTests
 {
     [Fact]

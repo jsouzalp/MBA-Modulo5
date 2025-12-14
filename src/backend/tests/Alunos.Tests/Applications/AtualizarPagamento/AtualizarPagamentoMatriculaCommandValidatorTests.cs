@@ -2,6 +2,7 @@ using Alunos.Application.Commands.AtualizarPagamento;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.AtualizarPagamento;
+
 public class AtualizarPagamentoMatriculaCommandValidatorTests
 {
     [Fact]

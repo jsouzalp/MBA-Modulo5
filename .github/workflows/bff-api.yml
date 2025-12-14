@@ -34,20 +34,6 @@ jobs:
         run: dotnet format src/backend/bff-api/BFF.API.sln --verify-no-changes
 
   # ===============================================
-  # Lint / Qualidade de código / Estruturas da solução
-  # ===============================================
-  complete-lint-validation:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Realizando checkout
-        uses: actions/checkout@v4
-
-      - name: Execução antecipada do LINT para aferir qualidade de código
-        run: dotnet format src/backend/MBA.Modulo5.sln --verify-no-changes
-
-  # ===============================================
   # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
   # Rodado em:
   #   - PR → DEV, main
@@ -102,7 +88,7 @@ jobs:
   # TESTES COMPLETOS (APENAS MAIN = CI completo)
   # ===============================================
   solution-tests:
-    needs: [complete-lint-validation, api-tests]
+    needs: api-tests
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 

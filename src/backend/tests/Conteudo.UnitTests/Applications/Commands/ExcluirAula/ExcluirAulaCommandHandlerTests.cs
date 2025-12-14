@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirAula;
+
 public class ExcluirAulaCommandHandlerTests
 {
     private readonly Mock<IAulaRepository> _aulas = new();

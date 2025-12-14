@@ -4,6 +4,7 @@ using global::Pagamentos.Domain.Models;
 using Pagamentos.Domain.Interfaces;
 
 namespace Pagamentos.UnitTests.Applications;
+
 public class PagamentoEventHandlerTests
 {
     [Fact]

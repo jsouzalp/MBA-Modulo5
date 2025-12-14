@@ -3,6 +3,7 @@ using Conteudo.Domain.ValueObjects;
 using Plataforma.Educacao.Core.Exceptions;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class CursoTests
 {
     // -------------------- Happy path & defaults --------------------

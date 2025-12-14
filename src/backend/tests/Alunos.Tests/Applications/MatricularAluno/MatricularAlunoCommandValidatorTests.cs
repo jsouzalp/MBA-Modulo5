@@ -2,6 +2,7 @@ using Alunos.Application.Commands.MatricularAluno;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.MatricularAluno;
+
 public class MatricularAlunoCommandValidatorTests
 {
     [Fact]

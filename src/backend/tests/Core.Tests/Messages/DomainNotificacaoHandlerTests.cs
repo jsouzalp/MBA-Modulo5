@@ -1,6 +1,7 @@
 using Core.Messages;
 
 namespace Core.Tests.Messages;
+
 public class DomainNotificacaoHandlerTests
 {
     [Fact]

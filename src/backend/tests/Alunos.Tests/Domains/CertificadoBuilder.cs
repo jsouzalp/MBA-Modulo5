@@ -1,6 +1,7 @@
 using Alunos.Domain.Entities;
 
 namespace Alunos.Tests.Domains;
+
 public class CertificadoBuilder
 {
     private Guid _matriculaId = Guid.NewGuid();

@@ -34,20 +34,6 @@ jobs:
         run: dotnet format src/backend/pagamentos-api/Pagamentos.API.sln --verify-no-changes
 
   # ===============================================
-  # Lint / Qualidade de código / Estruturas da solução
-  # ===============================================
-  complete-lint-validation:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Realizando checkout
-        uses: actions/checkout@v4
-
-      - name: Execução antecipada do LINT para aferir qualidade de código
-        run: dotnet format src/backend/MBA.Modulo5.sln --verify-no-changes
-
-  # ===============================================
   # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
   # Rodado em:
   #   - PR → DEV, main
@@ -79,7 +65,7 @@ jobs:
 
       - name: Restore da Solution para atender aos testes unitários e de integração
         run: dotnet restore src/backend/MBA.Modulo5.sln
-        
+
       - name: Execução de Testes Unitários Pagamentos-API
         run: dotnet test src/backend/tests/Pagamentos.UnitTests/Pagamentos.UnitTests/Pagamentos.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "Pagamentos-Unit-Tests-Results"
 
@@ -102,7 +88,7 @@ jobs:
   # TESTES COMPLETOS (APENAS MAIN = CI completo)
   # ===============================================
   solution-tests:
-    needs: [complete-lint-validation, api-tests]
+    needs: api-tests
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 

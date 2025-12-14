@@ -12,6 +12,7 @@ using NetDevPack.Security.Jwt.Core.Interfaces;
 using System.Security.Claims;
 
 namespace Auth.UnitTests.Application.Services;
+
 public class AuthServiceTests
 {
     // ---------------------------

@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.PublicarAula;
 
 namespace Conteudo.UnitTests.Applications.Commands.PublicarAula;
+
 public class PublicarAulaCommandValidatorTests
 {
     [Fact]

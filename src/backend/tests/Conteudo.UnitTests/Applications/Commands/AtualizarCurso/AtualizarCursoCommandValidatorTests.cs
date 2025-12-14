@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.AtualizarCurso;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarCurso;
+
 public class AtualizarCursoCommandValidatorTests
 {
     [Fact]

@@ -1,6 +1,7 @@
 using Core.Messages.Integration;
 
 namespace Core.Tests.Messages.Integration;
+
 public class PagamentoMatriculaCursoIntegrationEventTests
 {
     [Fact]

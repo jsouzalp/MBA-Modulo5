@@ -1,6 +1,7 @@
 using Pagamentos.Domain.Enum;
 
 namespace Pagamentos.UnitTests.Domains;
+
 public class TransacaoTests
 {
     [Fact]

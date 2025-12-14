@@ -2,6 +2,7 @@ using FluentAssertions;
 using Plataforma.Educacao.Core.Exceptions;
 
 namespace Alunos.Tests.Domains;
+
 public class CertificadoTests
 {
     // ---------- Happy path ----------

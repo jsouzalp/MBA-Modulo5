@@ -2,6 +2,7 @@ using Conteudo.Domain.Entities;
 using Plataforma.Educacao.Core.Exceptions;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class CategoriaTests
 {
     // ---------- Happy path ----------

@@ -7,6 +7,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarCurso;
+
 public class AtualizarCursoCommandHandlerTests
 {
     private readonly Mock<IMediatorHandler> _mediator = new();

@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.CadastrarMaterial;
 
 namespace Conteudo.UnitTests.Applications.Commands.CadastrarMaterial;
+
 public class CadastrarMaterialCommandValidatorTests
 {
     [Fact]

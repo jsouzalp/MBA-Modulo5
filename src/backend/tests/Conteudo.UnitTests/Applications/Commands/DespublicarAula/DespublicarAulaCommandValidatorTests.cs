@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.DespublicarAula;
 
 namespace Conteudo.UnitTests.Applications.Commands.DespublicarAula;
+
 public class DespublicarAulaCommandValidatorTests
 {
     [Fact]

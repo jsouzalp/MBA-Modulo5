@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.CadastrarMaterial;
+
 public class CadastrarMaterialCommandHandlerTests
 {
     private readonly Mock<IMaterialRepository> _materiais = new();

@@ -5,6 +5,7 @@ using Conteudo.Domain.Interfaces.Repositories;
 using NSubstitute;
 
 namespace Conteudo.UnitTests.Applications;
+
 public class AulaAppServiceTests
 {
     private readonly IAulaRepository _repo = Substitute.For<IAulaRepository>();

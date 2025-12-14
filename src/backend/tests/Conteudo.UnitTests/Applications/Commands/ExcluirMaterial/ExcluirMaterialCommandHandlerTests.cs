@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirMaterial;
+
 public class ExcluirMaterialCommandHandlerTests
 {
     private readonly Mock<IMaterialRepository> _materiais = new();
