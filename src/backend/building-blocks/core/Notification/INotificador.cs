@@ -1,4 +1,4 @@
-﻿namespace Core.Notification;
+namespace Core.Notification;
 
 public interface INotificador
 {

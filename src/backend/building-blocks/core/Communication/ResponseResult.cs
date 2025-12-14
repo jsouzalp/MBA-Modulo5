@@ -1,4 +1,4 @@
-﻿namespace Core.Communication;
+namespace Core.Communication;
 
 public class ResponseResult<T>
 {

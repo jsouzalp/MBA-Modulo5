@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Core.Tests.Mediator;
 
-public class MediatorHandlerTests 
+public class MediatorHandlerTests
 {
     private class ComandoTeste : RaizCommand
     {

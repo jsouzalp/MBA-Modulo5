@@ -5,6 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 [ExcludeFromCodeCoverage]
 public class Program
 {
+    // GIT Force rebuild
+    // GIT Force rebuild
+
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);

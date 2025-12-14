@@ -2,13 +2,13 @@ name: Auth-API - CI/CD
 
 on:
   pull_request:
-    branches: [ DEV, PR, main ]
+    branches: [ DEV, main ]
     paths:
       - 'src/backend/auth-api/**'
       - 'src/backend/building-blocks/**'
 
   push:
-    branches: [ DEV, PR, main ]
+    branches: [ DEV, main ]
     paths:
       - 'src/backend/auth-api/**'
       - 'src/backend/building-blocks/**'
@@ -20,32 +20,46 @@ env:
   DOTNET_VERSION: '9.0.x'
 
 jobs:
+  # ===============================================
+  # Lint / Qualidade de código / Estruturas
+  # ===============================================
+  lint-validation:
+    runs-on: ubuntu-latest
+
+    steps:    
+      - name: Realizando checkout
+        uses: actions/checkout@v4
+
+      - name: Execução antecipada do LINT para aferir qualidade de código
+        run: dotnet format src/backend/auth-api/Auth.API.sln --verify-no-changes
 
   # ===============================================
-  # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
-  # Rodado em:
-  #   - PR → DEV, PR, main
-  #   - Push → DEV, PR
+  # Lint / Qualidade de código / Estruturas da solução
   # ===============================================
-  api-tests:
+  complete-lint-validation:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Realizando checkout
         uses: actions/checkout@v4
 
-      - name: Execução antecipada do Super-Linter para aferir qualidade de código
-        uses: super-linter/super-linter@v8.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: main
-          RUN_LOCAL: false
-          VALIDATE_BASH: true
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_YAML: true
-          VALIDATE_DOCKERFILE: true
-          VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_CSHARP: true
+      - name: Execução antecipada do LINT para aferir qualidade de código
+        run: dotnet format src/backend/MBA.Modulo5.sln --verify-no-changes
+
+  # ===============================================
+  # BUILD + TESTES DO MICROSSERVIÇO (CI RÁPIDO)
+  # Rodado em:
+  #   - PR → DEV, main
+  #   - Push → DEV
+  # ===============================================
+  api-tests:
+    needs: lint-validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Realizando checkout
+        uses: actions/checkout@v4
 
       - name: Configuração .NET
         uses: actions/setup-dotnet@v4
@@ -62,6 +76,9 @@ jobs:
 
       - name: Build do microsserviço Auth-API
         run: dotnet build src/backend/auth-api/Auth.API.sln --configuration Release --no-restore
+
+      - name: Restore da Solution para atender aos testes unitários e de integração
+        run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes Unitários Auth-API
         run: dotnet test src/backend/tests/Auth.UnitTests/Auth.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "Auth-Unit-Tests-Results"
@@ -85,7 +102,7 @@ jobs:
   # TESTES COMPLETOS (APENAS MAIN = CI completo)
   # ===============================================
   solution-tests:
-    needs: api-tests
+    needs: [complete-lint-validation, api-tests]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 

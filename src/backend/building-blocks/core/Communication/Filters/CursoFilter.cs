@@ -1,4 +1,4 @@
-﻿namespace Core.Communication.Filters;
+namespace Core.Communication.Filters;
 
 public class CursoFilter
 {

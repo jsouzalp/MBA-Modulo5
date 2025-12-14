@@ -1,4 +1,4 @@
-﻿namespace Core.Identidade;
+namespace Core.Identidade;
 
 public class AppSettings
 {

@@ -2,7 +2,7 @@ using Core.Notification;
 
 namespace Core.Tests.Notification;
 
-public class NotificacaoTests 
+public class NotificacaoTests
 {
     [Fact]
     public void Notificacao_DeveCriarComPropriedadesPadrao()
