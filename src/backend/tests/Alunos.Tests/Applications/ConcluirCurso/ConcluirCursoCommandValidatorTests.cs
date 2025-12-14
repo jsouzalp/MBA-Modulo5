@@ -3,6 +3,7 @@ using Core.SharedDtos.Conteudo;
 using FluentAssertions;
 
 namespace Alunos.Tests.Applications.ConcluirCurso;
+
 public class ConcluirCursoCommandValidatorTests
 {
     [Fact]

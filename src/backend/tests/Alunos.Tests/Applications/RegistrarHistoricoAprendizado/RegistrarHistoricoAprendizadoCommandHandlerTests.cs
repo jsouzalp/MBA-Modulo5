@@ -10,6 +10,7 @@ using FluentAssertions;
 using Moq;
 
 namespace Alunos.Tests.Applications.RegistrarHistoricoAprendizado;
+
 public class RegistrarHistoricoAprendizadoCommandHandlerTests
 {
     private readonly Mock<IAlunoRepository> _repo = new();

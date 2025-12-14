@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.CadastrarCategoria;
 
 namespace Conteudo.UnitTests.Applications.Commands.CadastrarCategoria;
+
 public class CadastrarCategoriaCommandValidatorTests
 {
     [Fact]

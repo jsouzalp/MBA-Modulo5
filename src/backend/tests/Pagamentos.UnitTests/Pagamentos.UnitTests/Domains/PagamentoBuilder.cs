@@ -1,4 +1,5 @@
 namespace Pagamentos.UnitTests.Domains;
+
 public class PagamentoBuilder
 {
     private Guid _cobrancaCursoId = Guid.NewGuid();

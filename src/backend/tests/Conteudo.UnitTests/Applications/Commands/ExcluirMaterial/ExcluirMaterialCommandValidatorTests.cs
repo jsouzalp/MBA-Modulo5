@@ -1,6 +1,7 @@
 using Conteudo.Application.Commands.ExcluirMaterial;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirMaterial;
+
 public class ExcluirMaterialCommandValidatorTests
 {
     [Fact]

@@ -7,6 +7,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.ExcluirCurso;
+
 public class ExcluirCursoCommandHandlerTests
 {
     private readonly Mock<ICursoRepository> _cursos = new();

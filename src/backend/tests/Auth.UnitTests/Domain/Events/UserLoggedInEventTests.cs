@@ -1,6 +1,7 @@
 using Auth.Domain.Events;
 
 namespace Auth.UnitTests.Domain.Events;
+
 public class UserLoggedInEventTests
 {
     [Fact]

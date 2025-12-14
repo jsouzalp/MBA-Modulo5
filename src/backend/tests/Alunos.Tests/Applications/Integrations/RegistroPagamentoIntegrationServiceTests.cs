@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Alunos.Tests.Applications.Integrations;
+
 public class RegistroPagamentoIntegrationServiceTests
 {
     private static void VerifyLog<T>(Mock<ILogger<T>> logger, LogLevel level, string contains, Times times)

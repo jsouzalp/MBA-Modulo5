@@ -1,4 +1,5 @@
 namespace Pagamentos.UnitTests.Domains;
+
 public class PagamentoTests
 {
     [Fact]

@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarCategoria;
+
 public class AtualizarCategoriaCommandHandlerTests
 {
     private readonly Mock<ICategoriaRepository> _categorias = new();

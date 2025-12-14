@@ -2,6 +2,7 @@ using Pagamentos.Domain.Entities;
 using Pagamentos.Domain.Enum;
 
 namespace Pagamentos.UnitTests.Domains;
+
 public class TransacaoBuilder
 {
     private Guid _cobrancaCursoId = Guid.NewGuid();

@@ -1,6 +1,7 @@
 using Alunos.Domain.ValueObjects;
 
 namespace Alunos.Tests.Domains;
+
 public class HistoricoAprendizadoBuilder
 {
     private Guid _matriculaId = Guid.NewGuid();

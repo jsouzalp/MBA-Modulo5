@@ -6,6 +6,7 @@ using Conteudo.Domain.ValueObjects;
 using NSubstitute;
 
 namespace Conteudo.UnitTests.Applications;
+
 public class CursoQueryServiceTests
 {
     private readonly ICursoRepository _repo = Substitute.For<ICursoRepository>();

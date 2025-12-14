@@ -1,6 +1,7 @@
 using Conteudo.Domain.ValueObjects;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class ConteudoProgramaticoTests
 {
     // ---------- Happy path ----------

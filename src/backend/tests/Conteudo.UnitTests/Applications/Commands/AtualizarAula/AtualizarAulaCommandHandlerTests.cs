@@ -6,6 +6,7 @@ using Core.Mediator;
 using Core.Messages;
 
 namespace Conteudo.UnitTests.Applications.Commands.AtualizarAula;
+
 public class AtualizarAulaCommandHandlerTests
 {
     private readonly Mock<IAulaRepository> _aulas = new();

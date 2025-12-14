@@ -1,6 +1,7 @@
 using Conteudo.Domain.Entities;
 
 namespace Conteudo.UnitTests.Domains;
+
 public class CategoriaBuilder
 {
     private string _nome = "Arquitetura e Design";

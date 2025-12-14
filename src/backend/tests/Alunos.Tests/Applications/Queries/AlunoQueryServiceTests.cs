@@ -5,6 +5,7 @@ using FluentAssertions;
 using Moq;
 
 namespace Alunos.Tests.Applications.Queries;
+
 public class AlunoQueryServiceTests
 {
     private static Aluno NovoAlunoAtivo()

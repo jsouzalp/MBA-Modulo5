@@ -8,6 +8,7 @@ using Moq;
 using Core.Messages;
 
 namespace Alunos.Tests.Applications.SolicitarCertificado;
+
 public class SolicitarCertificadoCommandHandlerTests
 {
     private readonly Mock<IAlunoRepository> _repo = new();
