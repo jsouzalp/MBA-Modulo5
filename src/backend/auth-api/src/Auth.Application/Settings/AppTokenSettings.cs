@@ -1,4 +1,4 @@
-﻿namespace Auth.Application.Settings;
+namespace Auth.Application.Settings;
 
 public class AppTokenSettings
 {

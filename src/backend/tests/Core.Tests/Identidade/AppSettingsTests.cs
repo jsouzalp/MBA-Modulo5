@@ -2,7 +2,7 @@ using Core.Identidade;
 
 namespace Core.Tests.Identidade;
 
-public class AppSettingsTests 
+public class AppSettingsTests
 {
     [Fact]
     public void AppSettings_DeveCriarComPropriedadesPadrao()

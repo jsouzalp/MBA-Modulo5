@@ -77,6 +77,9 @@ jobs:
       - name: Build do microsserviço Pagamentos-API
         run: dotnet build src/backend/pagamentos-api/Pagamentos.API.sln --configuration Release --no-restore
 
+      - name: Restore da Solution para atender aos testes unitários e de integração
+        run: dotnet restore src/backend/MBA.Modulo5.sln
+        
       - name: Execução de Testes Unitários Pagamentos-API
         run: dotnet test src/backend/tests/Pagamentos.UnitTests/Pagamentos.UnitTests/Pagamentos.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "Pagamentos-Unit-Tests-Results"
 

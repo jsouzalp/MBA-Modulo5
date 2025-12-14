@@ -3,7 +3,7 @@ using Plataforma.Educacao.Core.Exceptions;
 
 namespace Core.Tests.DomainValidations;
 
-public class ResultadoValidacaoTests 
+public class ResultadoValidacaoTests
 {
     private class EntidadeTeste
     {

@@ -88,7 +88,7 @@ public class AlunoRepositoryTests : IDisposable
         await _repo.UnitOfWork.Commit();
 
         aluno = await _repo.ObterPorEmailAsync(aluno.Email, false);
-        aluno.InativarAluno(); 
+        aluno.InativarAluno();
 
         await _repo.AtualizarAsync(aluno);
         await _repo.UnitOfWork.Commit();

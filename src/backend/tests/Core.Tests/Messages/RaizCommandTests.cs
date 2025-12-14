@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace Core.Tests.Messages;
 
-public class CommandRaizTests 
+public class CommandRaizTests
 {
     private class ComandoTeste : RaizCommand
     {

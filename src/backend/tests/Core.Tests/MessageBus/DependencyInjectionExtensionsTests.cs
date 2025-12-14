@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Tests.MessageBus;
 
-public class DependencyInjectionExtensionsTests 
+public class DependencyInjectionExtensionsTests
 {
     [Fact]
     public void AddMessageBus_DeveAdicionarMessageBusAoServices()
