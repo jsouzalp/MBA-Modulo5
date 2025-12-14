@@ -5,6 +5,7 @@ using Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Conteudo.Infrastructure.Repositories;
+
 public class MaterialRepository(ConteudoDbContext dbContext) : IMaterialRepository
 {
     private readonly DbSet<Material> _material = dbContext.Set<Material>();
