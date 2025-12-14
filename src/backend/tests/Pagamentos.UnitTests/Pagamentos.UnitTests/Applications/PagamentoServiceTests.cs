@@ -9,6 +9,7 @@ using Pagamentos.Domain.Services;
 using Core.Messages;
 
 namespace Pagamentos.UnitTests.Applications;
+
 public class PagamentoServiceTests
 {
     private readonly Mock<IPagamentoCartaoCreditoFacade> _facade = new();

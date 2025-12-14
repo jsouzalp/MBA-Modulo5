@@ -1,6 +1,7 @@
 using Core.DomainValidations;
 
 namespace Core.Tests.DomainValidations;
+
 public class ValidacaoDataTests
 {
     private class Dummy { }

@@ -1,6 +1,7 @@
 using Core.Communication.Filters;
 
 namespace Core.Tests.Communication;
+
 public class CursoFilterTests
 {
     [Fact]

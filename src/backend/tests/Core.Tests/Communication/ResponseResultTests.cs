@@ -1,6 +1,7 @@
 using Core.Communication;
 
 namespace Core.Tests.Communication;
+
 public class ResponseResultTests
 {
     [Fact]
