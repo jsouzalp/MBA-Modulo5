@@ -80,5 +80,10 @@ public class CursoRepositoryTests : IDisposable
         (await _repo.ExistePorNomeAsync("Nome Único A", excludeId: c1.Id)).Should().BeFalse();
     }
 
-    public void Dispose() => _conn.Dispose();
+    [Fact]
+    public void Dispose()
+    {
+        _conn.Dispose();
+        _conn.State.Should().Be(System.Data.ConnectionState.Closed);
+    }
 }
