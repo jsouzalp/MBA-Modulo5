@@ -80,13 +80,28 @@ public class AulaRepositoryTests : IDisposable
         await _repo.PublicarAulaAsync(curso.Id, aula.Id);
         await _repo.UnitOfWork.Commit();
 
-        var publicadas = (await _repo.ObterPublicadasPorCursoIdAsync(curso.Id)).ToList();
+        var publicadas = (await _repo.ObterPublicadasPorCursoIdAsync(curso.Id, true)).ToList();
         publicadas.Should().ContainSingle(a => a.Id == aula.Id && a.IsPublicada);
 
         await _repo.DespublicarAulaAsync(curso.Id, aula.Id);
         await _repo.UnitOfWork.Commit();
 
         (await _repo.ObterPublicadasAsync()).Should().NotContain(a => a.Id == aula.Id);
+    }
+
+    [Fact]
+    public async Task Carregar_e_Atualizar_Aula()
+    {
+        var curso = NovoCurso(); _ctx.Cursos.Add(curso); await _ctx.SaveChangesAsync();
+        var aula = NovaAula(curso.Id, 1);
+        _ctx.Aulas.Add(aula); await _ctx.SaveChangesAsync();
+
+        aula.AtualizarInformacoes("Novo nome de Aula", aula.Descricao, aula.Numero, aula.DuracaoMinutos, aula.VideoUrl, aula.TipoAula, aula.IsObrigatoria, aula.Observacoes);
+        aula.AtualizarDataModificacao();
+        await _repo.AtualizarAulaAsync(aula);
+        await _repo.UnitOfWork.Commit();
+
+        (await _repo.ObterPorIdAsync(curso.Id, aula.Id, true)).Should().NotBeNull();
     }
 
     [Fact]
@@ -100,5 +115,10 @@ public class AulaRepositoryTests : IDisposable
         (await _repo.ExistePorNumeroAsync(curso.Id, 1, excludeId: a1.Id)).Should().BeFalse();
     }
 
-    public void Dispose() => _conn.Dispose();
+    [Fact]
+    public void Dispose()
+    {
+        _conn.Dispose();
+        _conn.State.Should().Be(System.Data.ConnectionState.Closed);
+    }
 }

@@ -7,3 +7,11 @@
 src/api_prototype1
 **/TestResults
 src/backend/tests/coverage-report
+Rascunho.txt
+**.user
+Rascunho.txt
+
+**.suo
+**.userosscache
+**.sln.docstates
+.env

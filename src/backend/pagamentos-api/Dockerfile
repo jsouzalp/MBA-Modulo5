@@ -2,7 +2,7 @@
 # Etapa 1 - Build
 # ========================================================================
 # Define a imagem a ser utilizada na API
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0.1 AS base
 WORKDIR /app
 EXPOSE 5004
 
@@ -38,7 +38,7 @@ RUN dotnet publish "pagamentos-api/src/Pagamentos.API/Pagamentos.API.csproj" -c 
 # ========================================================================
 # Etapa 3 - Runtime
 # ========================================================================
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0.1 AS final
 WORKDIR /app
 
 # Instalar curl para health checks

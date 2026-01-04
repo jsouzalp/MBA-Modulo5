@@ -86,5 +86,10 @@ public class MaterialRepositoryTests : IDisposable
         (await _repo.ExistePorNomeAsync(aula.Id, "Dup", excludeId: m1.Id)).Should().BeFalse();
     }
 
-    public void Dispose() => _conn.Dispose();
+    [Fact]
+    public void Dispose()
+    {
+        _conn.Dispose();
+        _conn.State.Should().Be(System.Data.ConnectionState.Closed);
+    }
 }

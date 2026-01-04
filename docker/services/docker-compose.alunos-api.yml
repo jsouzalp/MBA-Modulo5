@@ -2,6 +2,8 @@ services:
   alunos-api:
     image: educa/alunos-api:latest
     container_name: plataforma-alunos-api
+    env_file:
+      - ../../src/backend/.env
     build:
       context: ../../src/backend
       dockerfile: alunos-api/Dockerfile
@@ -14,21 +16,21 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:5003;http://+:7003
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=PlataformaEducacional123!
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AlunosDB;User Id=sa;Password=PlataformaEducacional123!;TrustServerCertificate=True;
-      - JwtSettings__SecretKey=PlataformaEducacional123!SuperSecretKey2024@#$
-      - JwtSettings__Issuer=PlataformaEducacional
-      - JwtSettings__Audience=PlataformaEducacional
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERTIFICATES}
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AlunosDB;User Id=sa;Password=${DB_PASSWORD_ALUNO};TrustServerCertificate=True;
+      - JwtSettings__SecretKey=${JWT_SECRET_KEY}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
       - RabbitMQ__Host=rabbitmq
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=admin
-      - RabbitMQ__Password=admin123
+      - RabbitMQ__Password=${RABBITMQ_PASSWORD}
       - ExternalApis__ConteudoApi=http://conteudo-api:7002
     networks:
       - plataforma-network
     restart: unless-stopped
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:8082/health']
+      test: ['CMD', 'curl', '-f', 'http://localhost:5003/health']
       interval: 15s
       timeout: 5s
       retries: 5

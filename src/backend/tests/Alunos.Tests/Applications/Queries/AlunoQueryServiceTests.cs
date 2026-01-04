@@ -1,6 +1,7 @@
 using Alunos.Application.Queries;
 using Alunos.Domain.Entities;
 using Alunos.Domain.Interfaces;
+using Alunos.Domain.ValueObjects;
 using FluentAssertions;
 using Moq;
 
@@ -218,4 +219,101 @@ public class AlunoQueryServiceTests
         dto.NomeCurso.Should().Be("Curso avançado de XUnit");
         dto.AlunoId.Should().Be(aluno.Id);
     }
+
+    [Fact]
+    public async Task ObterCertificadoPorMatriculaIdAsync_deve_retornar_dto_quando_certificado_existe()
+    {
+        var repo = new Mock<IAlunoRepository>();
+        var sut = new AlunoQueryService(repo.Object);
+
+        var aluno = NovoAlunoAtivo();
+        var matricula = aluno.MatricularAlunoEmCurso(Guid.NewGuid(), "Curso oficial de DDD", 100m, "obs");
+
+        matricula.RegistrarPagamentoMatricula();
+        matricula.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 1", 10, DateTime.UtcNow.Date);
+        matricula.ConcluirCurso();
+        matricula.RequisitarCertificadoConclusao(matricula.CalcularMediaFinalCurso(), "/certificados/abc.pdf", "Instrutor X");
+        var certificado = matricula.Certificado;
+
+        repo.Setup(r => r.ObterMatriculaPorIdAsync(matricula.Id, true))
+            .ReturnsAsync(matricula);
+
+        var dto = await sut.ObterCertificadoPorMatriculaIdAsync(matricula.Id);
+
+        dto.Should().NotBeNull();
+        dto!.Id.Should().Be(certificado.Id);
+        dto.MatriculaCursoId.Should().Be(certificado.MatriculaCursoId);
+        dto.NomeCurso.Should().Be("Curso oficial de DDD");
+        dto.PathCertificado.Should().Be("/certificados/abc.pdf");
+        dto.NomeInstrutor.Should().Be("Instrutor X");
+    }
+
+    [Fact]
+    public async Task ObterAulasPorMatriculaIdAsync_deve_retornar_lista_quando_historico_existe()
+    {
+        var repo = new Mock<IAlunoRepository>();
+        var sut = new AlunoQueryService(repo.Object);
+
+        var aluno = NovoAlunoAtivo();
+        var matricula = aluno.MatricularAlunoEmCurso(Guid.NewGuid(), "Algoritmos Avançados", 100m, "obs");
+        matricula.RegistrarPagamentoMatricula();
+        matricula.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 1", 10, DateTime.UtcNow.Date);
+        matricula.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 2", 10, DateTime.UtcNow.Date);
+        matricula.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 3", 10, DateTime.UtcNow.Date);
+
+        repo.Setup(r => r.ObterMatriculaPorIdAsync(matricula.Id, true))
+            .ReturnsAsync(matricula);
+
+        var aulas = (await sut.ObterAulasPorMatriculaIdAsync(matricula.Id))!.ToList();
+
+        aulas.Should().HaveCount(3);
+        aulas.Select(a => a.NomeAula).Should().Contain(new[] { "Módulo 1", "Módulo 2", "Módulo 3" });
+        aulas.All(a => a.CursoId == matricula.CursoId).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ObterCertificadosPorAlunoIdAsync_deve_filtrar_por_path_e_ordenar_por_data_emissao_desc()
+    {
+        var repo = new Mock<IAlunoRepository>();
+        var sut = new AlunoQueryService(repo.Object);
+
+        var aluno = NovoAlunoAtivo();
+
+        var m1 = aluno.MatricularAlunoEmCurso(Guid.NewGuid(), "Curso Algoritimos", 100m, "obs");
+        m1.RegistrarPagamentoMatricula();
+        m1.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 1", 10, DateTime.UtcNow.Date);
+        m1.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 2", 10, DateTime.UtcNow.Date);
+        m1.ConcluirCurso();
+        m1.RequisitarCertificadoConclusao(m1.CalcularMediaFinalCurso(), "/certificados/abc.pdf", "Instrutor X");
+
+        var m2 = aluno.MatricularAlunoEmCurso(Guid.NewGuid(), "Curso Binários", 100m, "obs");
+        m2.RegistrarPagamentoMatricula();
+        m2.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 1", 10, DateTime.UtcNow);
+        m2.RegistrarHistoricoAprendizado(Guid.NewGuid(), "Módulo 2", 10, DateTime.UtcNow);
+        m2.ConcluirCurso();
+        m2.RequisitarCertificadoConclusao(m2.CalcularMediaFinalCurso(), "/certificados/def.pdf", "Instrutor X");
+
+        var m3 = aluno.MatricularAlunoEmCurso(Guid.NewGuid(), "Curso Curvas", 100m, "obs");
+
+
+        repo.Setup(r => r.ObterPorIdAsync(aluno.Id, true))
+            .ReturnsAsync(aluno);
+
+        var lista = (await sut.ObterCertificadosPorAlunoIdAsync(aluno.Id)).ToList();
+
+        // só 2 entram (path obrigatório)
+        lista.Should().HaveCount(2);
+
+        // ordenado desc por DataEmissao
+        lista[0].NomeCurso.Should().Be("Curso Binários");
+        lista[1].NomeCurso.Should().Be("Curso Algoritimos");
+
+        // url mapeada do path
+        lista[0].Url.Should().Be("/certificados/def.pdf");
+
+        // código gerado (8 chars)
+        lista[0].Codigo.Should().NotBeNullOrWhiteSpace();
+        lista[0].Codigo.Length.Should().Be(8);
+    }
+
 }
