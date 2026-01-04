@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conteudo.Infrastructure.Migrations.SqlServer
 {
     [DbContext(typeof(ConteudoDbContext))]
-    [Migration("20251116111048_InitialMigrationSqlServer")]
+    [Migration("20260104124658_InitialMigrationSqlServer")]
     partial class InitialMigrationSqlServer
     {
         /// <inheritdoc />

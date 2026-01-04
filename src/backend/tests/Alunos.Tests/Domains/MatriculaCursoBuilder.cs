@@ -28,4 +28,18 @@ public class MatriculaCursoBuilder
         m.RegistrarPagamentoMatricula();
         return m;
     }
+
+    //public MatriculaCurso BuildConcluido()
+    //{
+    //    var m = BuildPago();
+    //    m.ConcluirCurso();
+    //    return m;
+    //}
+
+    //public MatriculaCurso BuildComHistoricoRegistrado(Guid aulaId, string nomeAula, int cargaHoraria, DateTime? dataTermino = null)
+    //{
+    //    var m = BuildPago();
+    //    m.RegistrarHistoricoAprendizado(aulaId, nomeAula, cargaHoraria, dataTermino);
+    //    return m;
+    //}
 }

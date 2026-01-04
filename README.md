@@ -205,6 +205,24 @@ http://localhost:5001/swagger
 Sempre que um pull-request de mudança no código-fonte de uma API é realizado para DEV ou PR (Alunos-API por exemplo) , são realizados os testes unitários da API modificada
 Quando é realizado um pull-request para a main, são realizados os testes por completo da solução
 
+Para execução de testes locais e de cobertura dos projetos, pode ser realizado da seguinte forma:
+### Testes do projeto:
+Neste caso, deixarei de exemplo testes unitários e de integração para o microsserviço ALUNOS. A estrutura dos demais microsserviços pode ser vista no tópico "8-Estrutura do Código Fonte"
+A partir da raiz do projeto, execute um prompt powershell com o comando abaixo:
+```
+dotnet test src/backend/tests/Alunos.Tests/Alunos.Tests.csproj --configuration Release --no-restore 
+dotnet test src/backend/tests/Alunos.IntegrationTests/Alunos.IntegrationTests.csproj --configuration Release --no-restore 
+
+```
+
+### Testes de cobertura:
+A partir da raiz do projeto, execute um prompt powershell com o comando abaixo:
+```
+cd .\src\backend\tests\
+.\TestsCoverage.cmd
+```
+Ao final desta execução, será aberto no navegador padrão o resultado dos testes de cobertura
+
 ## 🔄 Branch Strategy
 feature/xpto → DEV → PR → MAIN
 

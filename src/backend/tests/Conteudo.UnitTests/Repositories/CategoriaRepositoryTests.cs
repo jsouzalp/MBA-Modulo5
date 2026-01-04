@@ -52,5 +52,10 @@ public class CategoriaRepositoryTests : IDisposable
         (await _repo.ExistePorNome("Inexistente")).Should().BeFalse();
     }
 
-    public void Dispose() => _conn.Dispose();
+    [Fact]
+    public void Dispose()
+    {
+        _conn.Dispose();
+        _conn.State.Should().Be(System.Data.ConnectionState.Closed);
+    }
 }

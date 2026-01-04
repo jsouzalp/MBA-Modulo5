@@ -2,7 +2,7 @@
 # Etapa 1 - Build
 # ========================================================================
 # Define a imagem a ser utilizada na API
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0.1 AS base
 WORKDIR /app
 EXPOSE 5003
 
@@ -37,7 +37,7 @@ RUN dotnet publish "alunos-api/src/Alunos.API/Alunos.API.csproj" -c Release -o /
 # ========================================================================
 # Etapa 3 - Runtime
 # ========================================================================
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0.1 AS final
 WORKDIR /app
 
 # Instalar curl para health checks

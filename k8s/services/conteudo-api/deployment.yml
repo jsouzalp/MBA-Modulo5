@@ -4,7 +4,7 @@ metadata:
   name: conteudo-api
   namespace: plataforma-educacional
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: conteudo-api

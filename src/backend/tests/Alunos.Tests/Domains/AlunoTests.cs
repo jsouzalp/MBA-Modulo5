@@ -1,3 +1,4 @@
+using Alunos.Domain.Entities;
 using Alunos.Domain.Enumerators;
 using FluentAssertions;
 using Plataforma.Educacao.Core.Exceptions;

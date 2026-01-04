@@ -67,7 +67,7 @@ jobs:
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes Unitários BFF-API
-        run: dotnet test src/backend/tests/BFF.UnitTests/BFF.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "BFF-Unit-Tests-Results"
+        run: dotnet test src/backend/tests/BFF.UnitTests/BFF.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "BFF-Unit-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes unitários
         uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
           path: BFF-Unit-Tests-Results
 
       - name: Execução de Testes Integrados BFF-API
-        run: dotnet test src/backend/tests/BFF.IntegrationTests/BFF.IntegrationTests.csproj --configuration Release --no-restore --logger trx --results-directory "BFF-Integration-Tests-Results"
+        run: dotnet test src/backend/tests/BFF.IntegrationTests/BFF.IntegrationTests.csproj --configuration Release --no-restore --logger trx --results-directory "BFF-Integration-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes integrados
         uses: actions/upload-artifact@v4
@@ -105,7 +105,7 @@ jobs:
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes do eco-sistema
-        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release --no-restore --logger trx --results-directory "BFF-Solution-Tests-Results"
+        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release --no-restore --logger trx --results-directory "BFF-Solution-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes da solução
         uses: actions/upload-artifact@v4

@@ -4,7 +4,7 @@ metadata:
   name: alunos-api
   namespace: plataforma-educacional
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: alunos-api

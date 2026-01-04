@@ -67,7 +67,7 @@ jobs:
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes Unitários Auth-API
-        run: dotnet test src/backend/tests/Auth.UnitTests/Auth.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "Auth-Unit-Tests-Results"
+        run: dotnet test src/backend/tests/Auth.UnitTests/Auth.UnitTests.csproj --configuration Release --no-restore --logger trx --results-directory "Auth-Unit-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes unitários
         uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
           path: Auth-Unit-Tests-Results
 
       - name: Execução de Testes Integrados Auth-API
-        run: dotnet test src/backend/tests/Auth.IntegrationTests/Auth.IntegrationTests.csproj --configuration Release --no-restore --logger trx --results-directory "Auth-Integration-Tests-Results"
+        run: dotnet test src/backend/tests/Auth.IntegrationTests/Auth.IntegrationTests.csproj --configuration Release --no-restore --logger trx --results-directory "Auth-Integration-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes integrados
         uses: actions/upload-artifact@v4
@@ -105,7 +105,7 @@ jobs:
         run: dotnet restore src/backend/MBA.Modulo5.sln
 
       - name: Execução de Testes do eco-sistema
-        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release --no-restore --logger trx --results-directory "Auth-Solution-Tests-Results"
+        run: dotnet test src/backend/MBA.Modulo5.sln --configuration Release --no-restore --logger trx --results-directory "Auth-Solution-Tests-Results" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./
 
       - name: Gravação dos artefatos de testes da solução
         uses: actions/upload-artifact@v4
